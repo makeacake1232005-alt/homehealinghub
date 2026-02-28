@@ -1,0 +1,186 @@
+/* ============================================
+   PHASE TWO - THE MASSAGE TRANSITION
+   Updated colors to match reference
+   ============================================ */
+
+.phase-two {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    overflow: hidden;
+    background: var(--color-dark-bg);
+}
+
+.liquid-bg {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(ellipse at center,
+            #f7f6f3 0%,
+            #efede8 30%,
+            #e8ddd0 55%,
+            #ddd3c3 80%,
+            #c9ad8c 100%);
+    z-index: 0;
+}
+
+.color-wash {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            #f7f6f3 0%,
+            #faf9f7 30%,
+            #f0ebe3 60%,
+            #e8e0d5 100%);
+    z-index: 1;
+}
+
+.transition-bg-image {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.transition-bg-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(2px);
+}
+
+.organic-blobs {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.blob-0 {
+    width: 280px;
+    height: 280px;
+    top: -60px;
+    right: -40px;
+    background: radial-gradient(circle at 40% 40%, rgba(92, 122, 61, 0.12), transparent);
+}
+
+.blob-1 {
+    width: 200px;
+    height: 200px;
+    bottom: 15%;
+    left: -40px;
+    background: radial-gradient(circle at 60% 40%, rgba(163, 196, 168, 0.1), transparent);
+}
+
+.blob-2 {
+    width: 160px;
+    height: 160px;
+    top: 35%;
+    right: 12%;
+    background: radial-gradient(circle at 50% 50%, rgba(200, 169, 110, 0.1), transparent);
+}
+
+.blob-3 {
+    width: 220px;
+    height: 220px;
+    bottom: -50px;
+    right: 25%;
+    background: radial-gradient(circle at 40% 60%, rgba(212, 165, 165, 0.08), transparent);
+}
+
+.blob-4 {
+    width: 180px;
+    height: 180px;
+    top: 18%;
+    left: 18%;
+    background: radial-gradient(circle at 50% 50%, rgba(183, 201, 178, 0.1), transparent);
+}
+
+.blob-5 {
+    width: 120px;
+    height: 120px;
+    bottom: 30%;
+    right: 40%;
+    background: radial-gradient(circle at 50% 50%, rgba(92, 122, 61, 0.06), transparent);
+}
+
+.expanding-orb {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,
+            var(--color-primary-light),
+            var(--color-primary),
+            var(--color-primary-dark));
+    box-shadow: 0 0 50px rgba(92, 122, 61, 0.4);
+    z-index: 4;
+}
+
+.whisper-container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: 0 var(--space-xl);
+}
+
+.whisper-text {
+    font-family: var(--font-accent);
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+}
+
+.whisper-final {
+    font-weight: 400;
+    color: var(--color-text-primary);
+}
+
+.whisper-name {
+    font-family: var(--font-accent);
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    font-style: italic;
+    letter-spacing: 0.05em;
+}
+
+.transition-progress {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.progress-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    opacity: 0.3;
+}
+
+.progress-dot.active {
+    opacity: 1;
+}

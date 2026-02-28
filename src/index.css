@@ -1,0 +1,171 @@
+/* ============================================
+   HOME HEALING HUB - DESIGN SYSTEM
+   Matching homehealinghub.com.vn color scheme
+   ============================================ */
+
+:root {
+  /* Primary Colors - Olive/Forest Green (from reference) */
+  --color-primary: #5c7a3d;
+  --color-primary-dark: #4a6530;
+  --color-primary-light: #7a9c5a;
+  --color-primary-muted: rgba(92, 122, 61, 0.12);
+
+  /* Neutrals */
+  --color-bg: #f7f6f3;
+  --color-bg-alt: #efede8;
+  --color-surface: #ffffff;
+  --color-surface-alt: #faf9f7;
+
+  /* Text */
+  --color-text-primary: #2c2c2c;
+  --color-text-secondary: #6b6b6b;
+  --color-text-muted: #999999;
+  --color-text-inverse: #ffffff;
+
+  /* Dark theme (for header/hero) */
+  --color-dark-bg: #1a1a1a;
+  --color-dark-surface: #2a2a2a;
+  --color-dark-text: #e8e8e8;
+
+  /* Accents */
+  --color-gold: #c8a96e;
+  --color-gold-light: #dcc99d;
+  --color-warm-beige: #e8ddd0;
+  --color-sage: #b7c9b2;
+  --color-rose: #d4a5a5;
+  --color-peach: #e6b8a2;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.45);
+
+  /* Typography */
+  --font-display: 'Playfair Display', 'Cormorant Garamond', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-accent: 'Cormorant Garamond', serif;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 50px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.4s ease;
+  --transition-slow: 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background-color: var(--color-primary-light);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-muted);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   FALLING PETALS ANIMATION (Global)
+   ============================================ */
+.petals-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -30px;
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  animation: petalFall linear infinite;
+}
+
+.petal svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes petalFall {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) rotate(0deg) translateX(0px);
+  }
+
+  10% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  90% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(720deg) translateX(80px);
+  }
+}
