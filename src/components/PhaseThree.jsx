@@ -265,8 +265,8 @@ export default function PhaseThree({ userData }) {
         setCurrentPage(newPage)
         ambient.playPageTurn()
 
-        // Random water drop on page turn
-        setTimeout(() => ambient.playWaterDrop(), 300 + Math.random() * 500)
+        // Random bird chirp on page turn
+        setTimeout(() => ambient.playBirdChirp(), 300 + Math.random() * 500)
     }, [totalPages, ambient])
 
     const nextPage = useCallback(() => {
