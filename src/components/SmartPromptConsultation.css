@@ -457,23 +457,70 @@
     }
 
     .smart-giant-input {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .smart-suggestion {
-        padding: 1rem 1.5rem;
+        padding: 0.8rem 1.2rem;
     }
 
     .suggestion-text {
+        font-size: 1.2rem;
+    }
+
+    .input-icon-decor {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .smart-input-wrapper {
+        margin-bottom: 2rem;
+    }
+
+    .smart-dashboard {
+        padding: 1.5rem 1rem;
+        overflow-y: auto;
+        max-height: 100vh;
+    }
+
+    .dashboard-header h2 {
         font-size: 1.4rem;
     }
 
+    .smart-form-section {
+        padding: 1.5rem 1rem;
+    }
+
+    .smart-form-section h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .smart-form {
+        gap: 1rem;
+    }
+
     .smart-submit-btn {
-        padding: 1.2rem;
+        padding: 1rem;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
+    .smart-form-section-wrapper {
+        border-radius: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .smart-giant-input {
+        font-size: 1.3rem;
+    }
+
+    .suggestion-text {
         font-size: 1rem;
     }
 
     .dashboard-header h2 {
-        font-size: 1.8rem;
+        font-size: 1.2rem;
     }
 }

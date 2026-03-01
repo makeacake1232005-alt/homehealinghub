@@ -70,10 +70,11 @@ const translations = {
 
         // Therapies
         therapies: {
-            'energy-reset': { name: 'Energy Reset: Deep Recovery Thai Therapy', desc: 'Intensive Thai stretching, herbal hot compresses, and 528Hz healing frequencies to relieve physical fatigue and joint stiffness.', duration: '120 mins' },
-            'jetlag-recovery': { name: 'Jetlag Recovery: Wake Up Refreshed', desc: 'Lymphatic drainage massage, rehydrating oils, and 963Hz Crown Frequency to clear mental fog and restore your natural circadian rhythm.', duration: '90 mins' },
-            'silent-healing': { name: 'Silent Healing: Total Silence Therapy', desc: 'A calming massage in total silence, accompanied by 432Hz nature-aligned soundscapes and grounding oils to cure mental burnout.', duration: '90 mins' },
-            'default': { name: 'Signature Holistic Journey', desc: 'A bespoke treatment session specifically designed to target your unique physical and emotional state.', duration: '135 mins' },
+            'energy-reset': { name: 'Energy Reset: Deep Recovery Thai Therapy', desc: 'Intensive Thai stretching, herbal hot compresses, and 528Hz healing frequencies to relieve physical fatigue and joint stiffness.', duration: '120 mins', url: 'https://homehealinghub.com.vn/product/energy-reset-deep-recovery-thai-therapy/' },
+            'jetlag-recovery': { name: 'Jetlag Recovery: Wake Up Refreshed', desc: 'Lymphatic drainage massage, rehydrating oils, and 963Hz Crown Frequency to clear mental fog and restore your natural circadian rhythm.', duration: '90 mins', url: 'https://homehealinghub.com.vn/product/jetlag-recovery-wake-up-refreshed-wherever-you-land/' },
+            'silent-healing': { name: 'Silent Healing: Total Silence Therapy', desc: 'A calming massage in total silence, accompanied by 432Hz nature-aligned soundscapes and grounding oils to cure mental burnout.', duration: '90 mins', url: 'https://homehealinghub.com.vn/product/silent-healing-total-silence-sound-nature-therapy/' },
+            'couple-healing': { name: 'Couple Healing: Romantic Connection Therapy', desc: 'Synchronized dual-massage with 639Hz Heart Frequency, romantic candlelight setup, and love-blend aromatherapy for deeper connection.', duration: '120 mins', url: 'https://homehealinghub.com.vn/product/couple-healing-romantic-connection-therapy-639hz-heart-frequency-experience/' },
+            'default': { name: 'Signature Holistic Journey', desc: 'A bespoke treatment session specifically designed to target your unique physical and emotional state.', duration: '135 mins', url: 'https://homehealinghub.com.vn/healing-journeys/' },
         },
     },
     vi: {
@@ -145,10 +146,11 @@ const translations = {
 
         // Therapies
         therapies: {
-            'energy-reset': { name: 'Phục Hồi Năng Lượng: Thai Massage Chuyên Sâu', desc: 'Kỹ thuật Thai kéo giãn chuyên sâu, chườm thảo mộc nóng và tần số chữa lành 528Hz giúp giải phóng mệt mỏi thể chất.', duration: '120 phút' },
-            'jetlag-recovery': { name: 'Phục Hồi Jetlag: Tỉnh Táo Trở Lại', desc: 'Massage dẫn lưu bạch huyết, tinh dầu dưỡng ẩm và tần số vương miện 963Hz giúp xóa tan sương mù trí tuệ.', duration: '90 phút' },
-            'silent-healing': { name: 'Chữa Lành Trong Tĩnh Lặng', desc: 'Massage trong không gian tĩnh lặng hoàn toàn, cùng âm thanh 432Hz hài hòa thiên nhiên và tinh dầu grounding.', duration: '90 phút' },
-            'default': { name: 'Hành Trình Toàn Diện Đặc Biệt', desc: 'Liệu trình trị liệu riêng biệt được thiết kế chuyên biệt cho tình trạng thể chất và cảm xúc của bạn.', duration: '135 phút' },
+            'energy-reset': { name: 'Phục Hồi Năng Lượng: Thai Massage Chuyên Sâu', desc: 'Kỹ thuật Thai kéo giãn chuyên sâu, chườm thảo mộc nóng và tần số chữa lành 528Hz giúp giải phóng mệt mỏi thể chất.', duration: '120 phút', url: 'https://homehealinghub.com.vn/product/energy-reset-deep-recovery-thai-therapy/' },
+            'jetlag-recovery': { name: 'Phục Hồi Jetlag: Tỉnh Táo Trở Lại', desc: 'Massage dẫn lưu bạch huyết, tinh dầu dưỡng ẩm và tần số vương miện 963Hz giúp xóa tan sương mù trí tuệ.', duration: '90 phút', url: 'https://homehealinghub.com.vn/product/jetlag-recovery-wake-up-refreshed-wherever-you-land/' },
+            'silent-healing': { name: 'Chữa Lành Trong Tĩnh Lặng', desc: 'Massage trong không gian tĩnh lặng hoàn toàn, cùng âm thanh 432Hz hài hòa thiên nhiên và tinh dầu grounding.', duration: '90 phút', url: 'https://homehealinghub.com.vn/product/silent-healing-total-silence-sound-nature-therapy/' },
+            'couple-healing': { name: 'Couple Healing: Trị Liệu Kết Nối Lãng Mạn', desc: 'Massage đồng bộ cho cặp đôi với tần số trái tim 639Hz, nến thơm lãng mạn và tinh dầu tình yêu cho kết nối sâu sắc hơn.', duration: '120 phút', url: 'https://homehealinghub.com.vn/product/couple-healing-romantic-connection-therapy-639hz-heart-frequency-experience/' },
+            'default': { name: 'Hành Trình Toàn Diện Đặc Biệt', desc: 'Liệu trình trị liệu riêng biệt được thiết kế chuyên biệt cho tình trạng thể chất và cảm xúc của bạn.', duration: '135 phút', url: 'https://homehealinghub.com.vn/healing-journeys/' },
         },
     }
 }

@@ -536,12 +536,12 @@
 
     .page-image-side {
         width: 100%;
-        height: 200px;
+        height: 180px;
     }
 
     .page-text-side {
         width: 100%;
-        padding: var(--space-xl);
+        padding: var(--space-lg);
     }
 
     .book-viewport {
@@ -566,19 +566,110 @@
     .book-container {
         padding: var(--space-sm) var(--space-md);
     }
+
+    .rec-service-name {
+        font-size: 1.1rem;
+    }
+
+    .rec-service-desc {
+        font-size: 0.78rem;
+    }
+
+    .rec-cta-btn {
+        padding: 0.75rem 1.2rem;
+        font-size: 0.82rem;
+    }
 }
 
 @media (max-width: 500px) {
+    .book-header-inner {
+        padding: 0 var(--space-md);
+        height: 44px;
+    }
+
+    .book-logo span {
+        font-size: 0.85rem;
+    }
+
+    .page-indicator {
+        font-size: 0.7rem;
+    }
+
+    .page-image-side {
+        height: 140px;
+    }
+
     .page-text-side {
-        padding: var(--space-lg);
+        padding: var(--space-md);
+    }
+
+    .page-text-content {
+        gap: var(--space-sm);
+    }
+
+    .page-badge {
+        font-size: 0.6rem;
+        padding: 3px 10px;
     }
 
     .page-title {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+    }
+
+    .page-description {
+        font-size: 0.9rem;
+    }
+
+    .page-detail {
+        font-size: 0.8rem;
+        line-height: 1.6;
+    }
+
+    .page-duration {
+        font-size: 0.75rem;
+    }
+
+    .rec-greeting {
+        font-size: 0.95rem;
+    }
+
+    .rec-subtitle {
+        font-size: 0.75rem;
+    }
+
+    .rec-service-block {
+        padding: var(--space-sm) 0;
+    }
+
+    .rec-service-name {
+        font-size: 1rem;
+    }
+
+    .rec-service-desc {
+        font-size: 0.75rem;
+        line-height: 1.5;
     }
 
     .rec-details-row {
         flex-direction: column;
+        gap: var(--space-xs);
+    }
+
+    .rec-detail-label {
+        font-size: 0.6rem;
+    }
+
+    .rec-detail-value {
+        font-size: 0.78rem;
+    }
+
+    .rec-cta-btn {
+        padding: 0.7rem 1rem;
+        font-size: 0.78rem;
+        gap: var(--space-xs);
+    }
+
+    .rec-text-content {
         gap: var(--space-sm);
     }
 
@@ -589,5 +680,23 @@
     .page-dot {
         width: 6px;
         height: 6px;
+    }
+
+    .nav-arrow {
+        width: 32px;
+        height: 32px;
+    }
+
+    .book-footer {
+        padding: 6px var(--space-md);
+    }
+
+    .footer-brand,
+    .footer-hint {
+        font-size: 0.6rem;
+    }
+
+    .auto-play-hint span {
+        font-size: 0.6rem;
     }
 }

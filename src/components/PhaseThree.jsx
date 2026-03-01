@@ -122,14 +122,53 @@ function BookPage({ step, stepData, userData, t }) {
 }
 
 function RecommendationPage({ userData, t }) {
-    const REC_IMAGES = { 'energy-reset': '/hot-stone.png', 'jetlag-recovery': '/essential-oils.png', 'silent-healing': '/meditation.png', 'default': '/flower-bloom.png' }
+    const REC_IMAGES = {
+        'energy-reset': '/hot-stone.png',
+        'jetlag-recovery': '/essential-oils.png',
+        'silent-healing': '/meditation.png',
+        'couple-healing': '/flower-bloom.png',
+        'default': '/shoulder-relief.png'
+    }
 
     function getTherapyKey(condition) {
         if (!condition) return 'default'
         const c = condition.toLowerCase()
-        if (c.includes('pain') || c.includes('shoulder') || c.includes('neck') || c.includes('back') || c.includes('sore') || c.includes('stiff') || c.includes('đau') || c.includes('vai') || c.includes('gáy') || c.includes('lưng')) return 'energy-reset'
-        if (c.includes('sleep') || c.includes('insomnia') || c.includes('trouble') || c.includes('jetlag') || c.includes('ngủ')) return 'jetlag-recovery'
-        if (c.includes('stress') || c.includes('tension') || c.includes('heavy') || c.includes('burnout') || c.includes('căng') || c.includes('nặng')) return 'silent-healing'
+
+        // Group 1: Physical Pain → Energy Reset
+        if (c.includes('pain') || c.includes('shoulder') || c.includes('neck') || c.includes('back')
+            || c.includes('sore') || c.includes('stiff') || c.includes('headache') || c.includes('head')
+            || c.includes('muscle') || c.includes('joint') || c.includes('ache') || c.includes('hurt')
+            || c.includes('đau') || c.includes('vai') || c.includes('gáy') || c.includes('lưng')
+            || c.includes('cổ') || c.includes('nhức') || c.includes('mỏi') || c.includes('cơ')
+            || c.includes('khớp') || c.includes('đầu')) {
+            return 'energy-reset'
+        }
+
+        // Group 2: Sleep / Fatigue / Jetlag → Jetlag Recovery
+        if (c.includes('sleep') || c.includes('insomnia') || c.includes('tired') || c.includes('fatigue')
+            || c.includes('exhausted') || c.includes('jetlag') || c.includes('drowsy') || c.includes('restless')
+            || c.includes('ngủ') || c.includes('mệt') || c.includes('kiệt') || c.includes('uể oải')
+            || c.includes('buồn ngủ')) {
+            return 'jetlag-recovery'
+        }
+
+        // Group 3: Stress / Mental / Burnout → Silent Healing
+        if (c.includes('stress') || c.includes('tension') || c.includes('heavy') || c.includes('burnout')
+            || c.includes('anxiety') || c.includes('overwhelm') || c.includes('overload') || c.includes('mental')
+            || c.includes('pressure') || c.includes('worry') || c.includes('nervous')
+            || c.includes('căng') || c.includes('nặng') || c.includes('lo') || c.includes('áp lực')
+            || c.includes('quá tải') || c.includes('stress')) {
+            return 'silent-healing'
+        }
+
+        // Group 4: Couple / Romance / Together → Couple Healing
+        if (c.includes('couple') || c.includes('partner') || c.includes('together') || c.includes('romantic')
+            || c.includes('relationship') || c.includes('love') || c.includes('anniversary') || c.includes('date')
+            || c.includes('cặp') || c.includes('đôi') || c.includes('tình') || c.includes('yêu')
+            || c.includes('lãng mạn') || c.includes('kỷ niệm')) {
+            return 'couple-healing'
+        }
+
         return 'default'
     }
 
@@ -192,7 +231,9 @@ function RecommendationPage({ userData, t }) {
                         </div>
 
                         <motion.a
-                            href="tel:0981073280"
+                            href={rec.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="rec-cta-btn"
                             id="cta-book"
                             whileHover={{ scale: 1.03, y: -2 }}
