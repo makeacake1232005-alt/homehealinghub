@@ -1,4 +1,4 @@
-/* SmartPromptConsultation.css */
+/* SmartPromptConsultation.css - Premium Symptom Checker UI */
 
 .smart-consultation {
     width: 100vw;
@@ -14,10 +14,7 @@
 
 .smart-bg-wrapper {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: 0;
 }
 
@@ -25,98 +22,17 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: saturate(0.8) blur(5px);
-    opacity: 0.6;
+    filter: saturate(0.7) blur(8px);
+    opacity: 0.5;
 }
 
 .smart-bg-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(235, 242, 230, 0.92), rgba(247, 246, 243, 0.85));
+    background: linear-gradient(135deg, rgba(235, 242, 230, 0.93), rgba(247, 246, 243, 0.88));
 }
 
-.smart-container {
-    width: 100%;
-    max-width: 900px;
-    padding: 0 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 10;
-}
-
-.smart-input-wrapper {
-    position: relative;
-    width: 100%;
-    margin-bottom: 4rem;
-}
-
-/* Floating particles */
-.smart-particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.smart-particle {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(122, 156, 90, 0.5), transparent);
-    box-shadow: 0 0 10px rgba(122, 156, 90, 0.2);
-}
-
-/* Decorative icon */
-.input-icon-decor {
-    font-size: 3rem;
-    margin-bottom: 2rem;
-    filter: drop-shadow(0 4px 15px rgba(92, 122, 61, 0.3));
-}
-
-.smart-giant-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5.5vw, 3.8rem);
-    color: var(--color-primary-dark);
-    text-align: center;
-    padding: 1.5rem 0;
-    border-bottom: 2px solid rgba(92, 122, 61, 0.15);
-    transition: all 0.4s ease;
-    z-index: 2;
-    position: relative;
-    text-shadow: 0 4px 15px rgba(255, 255, 255, 0.8);
-}
-
-.smart-giant-input::placeholder {
-    color: rgba(92, 122, 61, 0.4);
-    font-weight: 300;
-}
-
-.smart-giant-input:focus {
-    border-bottom-color: transparent;
-}
-
-.smart-input-glow {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--color-primary), #7a9c5a, transparent);
-    box-shadow: 0 0 30px 10px rgba(122, 160, 80, 0.25);
-    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 1;
-}
-
-.smart-giant-input:focus~.smart-input-glow {
-    width: 100%;
-}
-
-/* Ambient Rays Background */
+/* Ambient Rays */
 .ambient-ray {
     position: absolute;
     width: 150vw;
@@ -131,21 +47,21 @@
 .ray-1 {
     top: -50%;
     left: -50%;
-    background: radial-gradient(circle, rgba(160, 195, 120, 0.25) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(160, 195, 120, 0.2) 0%, transparent 60%);
     animation: float-ray 15s ease-in-out infinite alternate;
 }
 
 .ray-2 {
     top: -10%;
     right: -40%;
-    background: radial-gradient(circle, rgba(200, 220, 150, 0.2) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(200, 220, 150, 0.15) 0%, transparent 60%);
     animation: float-ray 18s ease-in-out infinite alternate-reverse;
 }
 
 .ray-3 {
     bottom: -40%;
     left: 10%;
-    background: radial-gradient(circle, rgba(140, 180, 100, 0.15) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(140, 180, 100, 0.12) 0%, transparent 60%);
     animation: float-ray 20s ease-in-out infinite alternate;
 }
 
@@ -159,132 +75,325 @@
     }
 }
 
-.smart-suggestion {
-    cursor: pointer;
+/* Particles */
+.smart-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.smart-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(122, 156, 90, 0.4), transparent);
+    box-shadow: 0 0 8px rgba(122, 156, 90, 0.15);
+}
+
+/* ========== STEP 1: INPUT PHASE ========== */
+.smart-container {
+    width: 100%;
+    max-width: 700px;
+    padding: 0 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    padding: 2rem 4rem;
-    background: rgba(245, 248, 242, 0.85);
-    border-radius: 2rem;
-    border: 1px solid rgba(92, 122, 61, 0.15);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(92, 122, 61, 0.05);
+    z-index: 10;
 }
 
-.smart-suggestion:hover {
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 15px 40px rgba(92, 122, 61, 0.15);
-    border-color: rgba(92, 122, 61, 0.4);
-    transform: translateY(-2px);
+.input-header {
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
-.suggestion-text {
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    color: var(--color-primary-dark);
-}
-
-.suggestion-hint {
-    font-size: 0.9rem;
-    color: rgba(0, 0, 0, 0.4);
+.input-step-badge,
+.form-step-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    background: var(--color-primary-muted);
+    color: var(--color-primary);
+    margin-bottom: 1rem;
 }
 
-/* Phase 2: Epic Breathing/Transition */
+.input-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.input-subtitle {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    font-weight: 300;
+}
+
+/* Textarea input */
+.smart-input-wrapper {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.input-field-container {
+    position: relative;
+    width: 100%;
+}
+
+.smart-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 1.2rem 3.5rem 1.2rem 1.5rem;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(92, 122, 61, 0.15);
+    border-radius: 1.2rem;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    resize: none;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+.smart-textarea::placeholder {
+    color: rgba(92, 122, 61, 0.4);
+    font-weight: 300;
+}
+
+.smart-textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 30px rgba(92, 122, 61, 0.1), 0 0 0 3px rgba(92, 122, 61, 0.08);
+}
+
+.input-send-btn {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-primary);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(92, 122, 61, 0.3);
+}
+
+.input-send-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.input-send-btn:not(:disabled):hover {
+    background: var(--color-primary-dark);
+    box-shadow: 0 6px 20px rgba(92, 122, 61, 0.4);
+}
+
+/* Quick Options */
+.quick-options-section {
+    width: 100%;
+}
+
+.quick-label {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    text-align: center;
+}
+
+.quick-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+}
+
+.quick-option-card {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.2rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(92, 122, 61, 0.1);
+    border-radius: 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.quick-option-card:hover {
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 25px rgba(92, 122, 61, 0.1);
+}
+
+.quick-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.quick-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.quick-text strong {
+    font-size: 0.88rem;
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.quick-text small {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    font-weight: 400;
+}
+
+/* ========== ANALYSIS ANIMATION ========== */
 .smart-breathing-phase {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 10;
+    gap: 2rem;
 }
 
-.smart-orb {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(92, 122, 61, 0.6), transparent 60%);
+.analysis-anim {
+    position: relative;
+    width: 100px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 100px rgba(92, 122, 61, 0.3);
 }
 
-.orb-center {
-    width: 60px;
-    height: 60px;
-    background: #ffffff;
+.pulse-ring {
+    position: absolute;
+    inset: 0;
     border-radius: 50%;
-    box-shadow: 0 0 50px #ffffff;
+    border: 2px solid var(--color-primary);
 }
 
-/* Phase 3: Dashboard */
+.ring-2 {
+    border-color: rgba(92, 122, 61, 0.3);
+}
+
+.analysis-icon {
+    font-size: 2.5rem;
+    z-index: 2;
+}
+
+.analysis-text {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--color-text-primary);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+/* ========== STEP 2: FORM PHASE ========== */
 .smart-dashboard {
     width: 100%;
-    max-width: 1200px;
-    height: 100%;
-    padding: 4rem 2rem;
+    max-width: 650px;
+    padding: 1.5rem 2rem;
     display: flex;
     flex-direction: column;
     z-index: 10;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+/* Analysis Result Bar */
+.analysis-result-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.3rem;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(92, 122, 61, 0.12);
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.result-badge {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.result-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.result-condition {
+    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.result-match {
+    font-size: 0.78rem;
+    color: var(--color-primary);
+    font-weight: 600;
 }
 
 .dashboard-header {
-    margin-bottom: 3rem;
     text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 .dashboard-header h2 {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
     color: var(--color-text-primary);
     font-weight: 500;
-}
-
-.dashboard-header h2 span {
-    color: var(--color-primary);
-    position: relative;
-    display: inline-block;
-}
-
-.dashboard-header h2 span::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--color-primary);
 }
 
 .dashboard-content.no-chat {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
-    max-height: calc(100vh - 200px);
+    align-items: flex-start;
 }
 
 .standalone-form {
     width: 100%;
-    max-width: 600px;
 }
 
-/* Full Form Right */
+/* Form Styling */
 .smart-form-section-wrapper {
     position: relative;
-    border-radius: 1.5rem;
+    border-radius: 1.2rem;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
 }
 
 .form-bg-img {
@@ -293,33 +402,24 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.7;
+    opacity: 0.6;
     z-index: 0;
 }
 
 .smart-form-section {
     position: relative;
     z-index: 1;
-    background: rgba(246, 250, 244, 0.9);
+    background: rgba(246, 250, 244, 0.92);
     backdrop-filter: blur(15px);
-    height: 100%;
-    padding: 3.5rem 3rem;
+    padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
-}
-
-.smart-form-section h3 {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: var(--color-primary-dark);
-    font-weight: 500;
 }
 
 .smart-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.2rem;
 }
 
 .form-group-modern {
@@ -330,12 +430,12 @@
 .form-group-modern input,
 .form-group-modern select {
     width: 100%;
-    padding: 1.5rem 1rem 0.5rem;
-    background: rgba(255, 255, 255, 0.7);
+    padding: 1.3rem 1rem 0.5rem;
+    background: rgba(255, 255, 255, 0.75);
     border: 1px solid rgba(92, 122, 61, 0.1);
     border-bottom: 2px solid rgba(92, 122, 61, 0.2);
     color: var(--color-text-primary);
-    font-size: 1.1rem;
+    font-size: 1rem;
     outline: none;
     transition: all 0.3s;
     border-radius: 0.5rem;
@@ -349,28 +449,28 @@
     color: rgba(92, 122, 61, 0.6);
     pointer-events: none;
     transition: all 0.3s;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .form-group-modern input:focus,
 .form-group-modern input:not(:placeholder-shown) {
     border-bottom-color: var(--color-primary-dark);
     background: #ffffff;
-    box-shadow: 0 5px 15px rgba(92, 122, 61, 0.05);
+    box-shadow: 0 3px 10px rgba(92, 122, 61, 0.04);
 }
 
 .form-group-modern input:focus~label,
 .form-group-modern input:not(:placeholder-shown)~label {
     top: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--color-primary-dark);
     font-weight: 500;
 }
 
 .select-modern select {
-    padding: 1rem;
+    padding: 0.9rem;
     border-radius: 0.5rem;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.75);
     border: 1px solid rgba(92, 122, 61, 0.1);
     border-bottom: 2px solid rgba(92, 122, 61, 0.2);
     color: var(--color-text-primary);
@@ -384,70 +484,57 @@
 .select-modern select:focus {
     border-bottom-color: var(--color-primary-dark);
     background: #ffffff;
-    box-shadow: 0 5px 15px rgba(92, 122, 61, 0.05);
 }
 
 .smart-submit-btn {
-    margin-top: 1.5rem;
-    padding: 1.5rem;
+    margin-top: 1rem;
+    padding: 1.2rem;
     background: var(--color-primary);
     color: #ffffff;
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     border-radius: 3rem;
     border: none;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(92, 122, 61, 0.3);
+    box-shadow: 0 8px 25px rgba(92, 122, 61, 0.3);
     transition: all 0.3s;
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
 
 .smart-submit-btn:hover {
-    box-shadow: 0 15px 40px rgba(92, 122, 61, 0.5);
-    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(92, 122, 61, 0.45);
+    transform: translateY(-2px);
     background: var(--color-primary-dark);
 }
 
-/* RESPONSIVE DESIGN FOR SMART CONSULTATION */
-@media (max-width: 1024px) {
-    .smart-suggestion {
-        padding: 1.5rem 2.5rem;
-    }
-}
-
+/* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
-    .smart-giant-input {
-        font-size: 2.2rem;
-        padding: 1rem 0;
+    .input-title {
+        font-size: 1.8rem;
     }
 
-    .smart-suggestion {
-        padding: 1.2rem 2rem;
-        width: 100%;
+    .quick-options-grid {
+        grid-template-columns: 1fr;
     }
 
-    .suggestion-text {
-        font-size: 1.6rem;
-        text-align: center;
+    .smart-textarea {
+        min-height: 80px;
+        font-size: 0.95rem;
     }
 
     .smart-form-section {
-        padding: 2.5rem 1.5rem;
+        padding: 2rem 1.5rem;
     }
 
-    .smart-form-section h3 {
-        font-size: 1.6rem;
+    .analysis-result-bar {
+        flex-direction: row;
+        gap: 0.8rem;
+        padding: 0.8rem 1rem;
     }
 
-    .form-group-modern input,
-    .form-group-modern select {
-        padding: 1.2rem 0.8rem 0.4rem;
-        font-size: 1rem;
-    }
-
-    .form-group-modern label {
-        font-size: 1rem;
+    .result-badge {
+        font-size: 1.5rem;
     }
 }
 
@@ -456,71 +543,66 @@
         padding: 0 1rem;
     }
 
-    .smart-giant-input {
-        font-size: 1.6rem;
+    .input-title {
+        font-size: 1.5rem;
     }
 
-    .smart-suggestion {
-        padding: 0.8rem 1.2rem;
+    .input-subtitle {
+        font-size: 0.85rem;
     }
 
-    .suggestion-text {
-        font-size: 1.2rem;
+    .quick-option-card {
+        padding: 0.8rem 1rem;
     }
 
-    .input-icon-decor {
-        font-size: 2rem;
-        margin-bottom: 1rem;
+    .quick-icon {
+        font-size: 1.4rem;
     }
 
-    .smart-input-wrapper {
-        margin-bottom: 2rem;
+    .quick-text strong {
+        font-size: 0.8rem;
+    }
+
+    .quick-text small {
+        font-size: 0.65rem;
     }
 
     .smart-dashboard {
-        padding: 1.5rem 1rem;
-        overflow-y: auto;
-        max-height: 100vh;
+        padding: 1rem;
     }
 
     .dashboard-header h2 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
 
     .smart-form-section {
         padding: 1.5rem 1rem;
     }
 
-    .smart-form-section h3 {
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-    }
-
-    .smart-form {
-        gap: 1rem;
-    }
-
     .smart-submit-btn {
         padding: 1rem;
         font-size: 0.9rem;
-        margin-top: 0.5rem;
     }
 
-    .smart-form-section-wrapper {
-        border-radius: 1rem;
+    .analysis-result-bar {
+        padding: 0.7rem 0.8rem;
+    }
+
+    .result-condition {
+        font-size: 0.72rem;
+    }
+
+    .result-match {
+        font-size: 0.7rem;
     }
 }
 
 @media (max-width: 360px) {
-    .smart-giant-input {
+    .input-title {
         font-size: 1.3rem;
     }
 
-    .suggestion-text {
-        font-size: 1rem;
-    }
-
     .dashboard-header h2 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 }

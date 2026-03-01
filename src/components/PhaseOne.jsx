@@ -133,22 +133,6 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                     </motion.div>
                 </motion.section>
 
-                {/* Scrolling image gallery */}
-                <div className="gallery-strip">
-                    <motion.div
-                        className="gallery-track"
-                        animate={{ x: [0, '-50%'] }}
-                        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-                    >
-                        {['/essential-oils.png', '/hot-stone.png', '/meditation.png', '/shoulder-relief.png', '/flower-bloom.png', '/infrared-therapy.png',
-                            '/essential-oils.png', '/hot-stone.png', '/meditation.png', '/shoulder-relief.png', '/flower-bloom.png', '/infrared-therapy.png'].map((src, i) => (
-                                <div className="gallery-item" key={i}>
-                                    <img src={src} alt="" />
-                                </div>
-                            ))}
-                    </motion.div>
-                </div>
-
                 {/* Main Content Area */}
                 <div className="main-content-area" id="consultation-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '4rem auto 8rem', textAlign: 'center' }}>
                     <motion.div
