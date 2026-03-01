@@ -6,94 +6,50 @@ import SmartPromptConsultation from './SmartPromptConsultation'
 import './PhaseOne.css'
 
 
-function ExperienceShowcase() {
-    const experiences = [
-        {
-            id: 1,
-            title: 'Trị Liệu Tinh Dầu Thảo Mộc',
-            desc: 'Kỹ thuật massage chuyên sâu kết hợp tinh dầu thiên nhiên nguyên chất, giúp giải tỏa tận gốc vùng cơ căng cứng, mang lại cảm giác nhẹ nhõm tức thì.',
-            img: '/essential-oils.png',
-            duration: '60 phút'
-        },
-        {
-            id: 2,
-            title: 'Phục Hồi Đá Nóng Bazan',
-            desc: 'Hơi ấm từ đá núi lửa bazan kết hợp liệu pháp ánh sáng hồng ngoại thâm nhập sâu vào huyệt đạo, kích hoạt tuần hoàn máu và đào thải độc tố cơ thể.',
-            img: '/infrared-therapy.png',
-            duration: '45 phút'
-        },
-        {
-            id: 3,
-            title: 'Thiền Định Tĩnh Tâm',
-            desc: 'Không gian riêng tư, tách biệt hoàn toàn với tiếng ồn. Âm nhạc sóng não và hương trầm sẽ dẫn dắt bạn vào trạng thái thư giãn sâu, tái tạo năng lượng tinh thần.',
-            img: '/meditation.png',
-            duration: '30 phút'
-        }
-    ]
-
-    return (
-        <section className="experience-showcase" id="experience-showcase">
-            <div className="showcase-container">
-                <motion.div
-                    className="showcase-header"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <span className="showcase-kicker">KHÁM PHÁ</span>
-                    <h2 className="showcase-title">Trải Nghiệm Chữa Lành Thực Tế</h2>
-                    <p className="showcase-subtitle">Mỗi bước trong hành trình tại Home Healing Hub đều được thiết kế tỉ mỉ để xoa dịu các giác quan và đánh thức khả năng tự phục hồi của bạn.</p>
-                </motion.div>
-
-                <div className="showcase-grid">
-                    {experiences.map((exp, idx) => (
-                        <motion.div
-                            className="showcase-card"
-                            key={exp.id}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.8, delay: idx * 0.2 }}
-                            whileHover={{ y: -10 }}
-                        >
-                            <div className="showcase-img-wrap">
-                                <img src={exp.img} alt={exp.title} className="showcase-img" />
-                                <div className="showcase-overlay" />
-                                <div className="showcase-duration">{exp.duration}</div>
-                            </div>
-                            <div className="showcase-content">
-                                <h3 className="showcase-card-title">{exp.title}</h3>
-                                <p className="showcase-card-desc">{exp.desc}</p>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    )
-}
+// Removed ExperienceShowcase
 
 export default function PhaseOne({ onComplete, userData, setUserData }) {
     const [wizardActive, setWizardActive] = useState(null)
+    const [isTransitioning, setIsTransitioning] = useState(false)
+
+    const handleStartConsultation = () => {
+        setIsTransitioning(true)
+        // Hiệu ứng cực đỉnh kéo dài 1.5s trước khi mở form smart
+        setTimeout(() => {
+            setWizardActive('smart')
+        }, 1500)
+    }
 
     return (
         <>
-            {wizardActive === 'giant' && (
-                <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 99999 }}>
-                    <GiantConsultation onComplete={onComplete} />
-                </div>
-            )}
-            {wizardActive === 'bento' && (
-                <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 99999 }}>
-                    <BentoConsultation onComplete={onComplete} />
-                </div>
-            )}
             {wizardActive === 'smart' && (
                 <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 99999 }}>
                     <SmartPromptConsultation onComplete={onComplete} />
                 </div>
             )}
+
+            <AnimatePresence>
+                {isTransitioning && (
+                    <motion.div
+                        key="epic-transition"
+                        initial={{ scale: 0, opacity: 0, borderRadius: '50%' }}
+                        animate={{ scale: 30, opacity: 1, borderRadius: '0%' }}
+                        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                        style={{
+                            position: 'fixed',
+                            top: '50%',
+                            left: '50%',
+                            width: '100px',
+                            height: '100px',
+                            backgroundColor: '#0d0e12',
+                            transform: 'translate(-50%, -50%)',
+                            zIndex: 99998,
+                            transformOrigin: 'center',
+                            pointerEvents: 'none'
+                        }}
+                    />
+                )}
+            </AnimatePresence>
 
             <motion.div
                 className="phase-one"
@@ -170,11 +126,8 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                     </div>
                 </motion.section>
 
-                {/* Experience Showcase */}
-                <ExperienceShowcase />
-
                 {/* Main Content Area (Consultation Start Button) */}
-                <div className="main-content-area" id="consultation-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '4rem auto 8rem', textAlign: 'center' }}>
+                <div className="main-content-area" id="consultation-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '6rem auto 10rem', textAlign: 'center' }}>
                     <motion.div
                         className="floating-leaves"
                         initial={{ opacity: 0 }}
@@ -197,41 +150,17 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                         Tư Vấn Trị Liệu<br />
                         <span className="title-accent">Cá Nhân Hóa</span>
                     </h1>
-                    <p className="section-subtitle" style={{ fontSize: '1.2rem', marginBottom: '3rem', maxWidth: '600px' }}>
-                        Hãy tĩnh tâm và chia sẻ cảm nhận hiện tại của bạn. Giao diện trực quan mới giúp bạn dễ dàng bộc lộ trọn vẹn sự mệt mỏi mà không cần gõ bất cứ từ nào.
+                    <p className="section-subtitle" style={{ fontSize: '1.2rem', marginBottom: '4rem', maxWidth: '600px' }}>
+                        Hãy tĩnh tâm và chia sẻ cảm nhận hiện tại của bạn. Nhấn vào nút bên dưới để bước vào không gian chăm sóc dành riêng cho bạn.
                     </p>
 
-                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                        <motion.button
-                            className="submit-btn"
-                            style={{ maxWidth: '300px', fontSize: '1.2rem', padding: '1.2rem 2rem', borderRadius: '4rem' }}
-                            onClick={() => setWizardActive('bento')}
-                            whileHover={{ scale: 1.05, y: -5 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <span className="btn-shimmer" />
-                            <span className="btn-text">Dùng Bento Grid (Mới🔥)</span>
-                        </motion.button>
-                        <motion.button
-                            className="submit-btn"
-                            style={{ maxWidth: '300px', fontSize: '1.2rem', padding: '1.2rem 2rem', borderRadius: '4rem', background: '#222' }}
-                            onClick={() => setWizardActive('smart')}
-                            whileHover={{ scale: 1.05, y: -5 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <span className="btn-shimmer" />
-                            <span className="btn-text">Thanh Tàng Hình (Auto-suggest)</span>
-                        </motion.button>
-                        <motion.button
-                            className="submit-btn"
-                            style={{ maxWidth: '300px', fontSize: '1.2rem', padding: '1.2rem 2rem', borderRadius: '4rem', background: 'transparent', border: '1px solid #ddd', color: '#555' }}
-                            onClick={() => setWizardActive('giant')}
-                            whileHover={{ scale: 1.05, y: -5 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <span className="btn-text">Dùng Slider Cũ (Khổng lồ)</span>
-                        </motion.button>
+                    <div className="epic-btn-container" onClick={handleStartConsultation}>
+                        <div className="epic-btn-glow" />
+                        <div className="epic-btn-inner">
+                            Personal Healing Consultation
+                        </div>
                     </div>
+
                 </div>
             </motion.div>
         </>
