@@ -101,6 +101,74 @@ function AbsorbedMessage({ text, onComplete }) {
     )
 }
 
+function ExperienceShowcase() {
+    const experiences = [
+        {
+            id: 1,
+            title: 'Trị Liệu Tinh Dầu Thảo Mộc',
+            desc: 'Kỹ thuật massage chuyên sâu kết hợp tinh dầu thiên nhiên nguyên chất, giúp giải tỏa tận gốc vùng cơ căng cứng, mang lại cảm giác nhẹ nhõm tức thì.',
+            img: '/essential-oils.png',
+            duration: '60 phút'
+        },
+        {
+            id: 2,
+            title: 'Phục Hồi Đá Nóng Bazan',
+            desc: 'Hơi ấm từ đá núi lửa bazan kết hợp liệu pháp ánh sáng hồng ngoại thâm nhập sâu vào huyệt đạo, kích hoạt tuần hoàn máu và đào thải độc tố cơ thể.',
+            img: '/infrared-therapy.png',
+            duration: '45 phút'
+        },
+        {
+            id: 3,
+            title: 'Thiền Định Tĩnh Tâm',
+            desc: 'Không gian riêng tư, tách biệt hoàn toàn với tiếng ồn. Âm nhạc sóng não và hương trầm sẽ dẫn dắt bạn vào trạng thái thư giãn sâu, tái tạo năng lượng tinh thần.',
+            img: '/meditation.png',
+            duration: '30 phút'
+        }
+    ]
+
+    return (
+        <section className="experience-showcase" id="experience-showcase">
+            <div className="showcase-container">
+                <motion.div
+                    className="showcase-header"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <span className="showcase-kicker">KHÁM PHÁ</span>
+                    <h2 className="showcase-title">Trải Nghiệm Chữa Lành Thực Tế</h2>
+                    <p className="showcase-subtitle">Mỗi bước trong hành trình tại Home Healing Hub đều được thiết kế tỉ mỉ để xoa dịu các giác quan và đánh thức khả năng tự phục hồi của bạn.</p>
+                </motion.div>
+
+                <div className="showcase-grid">
+                    {experiences.map((exp, idx) => (
+                        <motion.div
+                            className="showcase-card"
+                            key={exp.id}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.8, delay: idx * 0.2 }}
+                            whileHover={{ y: -10 }}
+                        >
+                            <div className="showcase-img-wrap">
+                                <img src={exp.img} alt={exp.title} className="showcase-img" />
+                                <div className="showcase-overlay" />
+                                <div className="showcase-duration">{exp.duration}</div>
+                            </div>
+                            <div className="showcase-content">
+                                <h3 className="showcase-card-title">{exp.title}</h3>
+                                <p className="showcase-card-desc">{exp.desc}</p>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    )
+}
+
 export default function PhaseOne({ onComplete, userData, setUserData }) {
     const [inputValue, setInputValue] = useState('')
     const [messages, setMessages] = useState([])
@@ -244,8 +312,11 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                 </div>
             </motion.section>
 
-            {/* Main Content Area */}
-            <div className="main-content-area">
+            {/* Experience Showcase - Realism Section */}
+            <ExperienceShowcase />
+
+            {/* Main Content Area (Consultation) */}
+            <div className="main-content-area" id="consultation-section">
                 {/* Decorative leaves */}
                 <motion.div
                     className="floating-leaves"
@@ -273,11 +344,11 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                     transition={{ delay: 0.6, duration: 0.8 }}
                 >
                     <h1 className="section-title" id="hero-title">
-                        Personal Healing<br />
-                        <span className="title-accent">Consultation</span>
+                        Tư Vấn Trị Liệu<br />
+                        <span className="title-accent">Cá Nhân Hóa</span>
                     </h1>
                     <p className="section-subtitle" id="hero-subtitle">
-                        Share what you're going through, and we'll guide you to the most suitable healing experience
+                        Hãy tĩnh tâm và chia sẻ cảm nhận hiện tại của bạn. Chúng tôi ở đây để lắng nghe và thiết kế liệu trình chữa lành phù hợp nhất.
                     </p>
                 </motion.div>
 
@@ -376,7 +447,7 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                                     <form onSubmit={handleFormSubmit} className="consultation-form">
                                         <div className="form-row">
                                             <div className="form-group">
-                                                <label className="form-label" htmlFor="firstName">FIRST NAME</label>
+                                                <label className="form-label" htmlFor="firstName">TÊN (FIRST NAME)</label>
                                                 <input type="text" id="firstName" className="form-input"
                                                     value={formData.firstName}
                                                     onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
@@ -384,7 +455,7 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                                                 />
                                             </div>
                                             <div className="form-group">
-                                                <label className="form-label" htmlFor="lastName">LAST NAME</label>
+                                                <label className="form-label" htmlFor="lastName">HỌ (LAST NAME)</label>
                                                 <input type="text" id="lastName" className="form-input"
                                                     value={formData.lastName}
                                                     onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
@@ -394,24 +465,24 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                                         </div>
 
                                         <div className="form-group">
-                                            <label className="form-label" htmlFor="email">EMAIL ADDRESS</label>
+                                            <label className="form-label" htmlFor="email">ĐỊA CHỈ EMAIL</label>
                                             <input type="email" id="email" className="form-input"
                                                 value={formData.email}
                                                 onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                                                placeholder="example@email.com" required
+                                                placeholder="vd: tenban@email.com" required
                                             />
                                         </div>
 
                                         <div className="form-group">
-                                            <label className="form-label" htmlFor="phone">PHONE NUMBER</label>
+                                            <label className="form-label" htmlFor="phone">SỐ ĐIỆN THOẠI</label>
                                             <div className="phone-input-wrapper">
                                                 <select className="country-select" id="countryCode"
                                                     value={formData.countryCode}
                                                     onChange={(e) => setFormData(prev => ({ ...prev, countryCode: e.target.value }))}
                                                 >
-                                                    <option value="Vietnam">Vietnam</option>
-                                                    <option value="US">US</option>
-                                                    <option value="UK">UK</option>
+                                                    <option value="Vietnam">Việt Nam (+84)</option>
+                                                    <option value="US">US (+1)</option>
+                                                    <option value="UK">UK (+44)</option>
                                                 </select>
                                                 <input type="tel" id="phone" className="form-input phone-input"
                                                     value={formData.phone}
@@ -422,24 +493,24 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                                         </div>
 
                                         <div className="form-group">
-                                            <label className="form-label" htmlFor="condition">DESCRIBE YOUR CURRENT CONDITION</label>
+                                            <label className="form-label" htmlFor="condition">MÔ TẢ CHI TIẾT TÌNH TRẠNG</label>
                                             <textarea id="condition" className="form-input form-textarea"
                                                 value={formData.condition}
                                                 onChange={(e) => setFormData(prev => ({ ...prev, condition: e.target.value }))}
-                                                placeholder="Headache, stress, body aches..."
+                                                placeholder="Ví dụ: Tôi hay bị đau mỏi cổ vai gáy do ngồi máy tính nhiều, khó ngủ về đêm..."
                                                 rows={3}
                                             />
                                         </div>
 
                                         <div className="form-group">
-                                            <label className="form-label" htmlFor="intensity">INTENSITY LEVEL</label>
+                                            <label className="form-label" htmlFor="intensity">MỨC ĐỘ</label>
                                             <select id="intensity" className="form-input form-select"
                                                 value={formData.intensity}
                                                 onChange={(e) => setFormData(prev => ({ ...prev, intensity: e.target.value }))}
                                             >
-                                                <option value="Nhẹ">Light</option>
-                                                <option value="Vừa">Medium</option>
-                                                <option value="Sâu">High</option>
+                                                <option value="Nhẹ">Nhẹ (Thi thoảng có cảm giác khó chịu)</option>
+                                                <option value="Vừa">Vừa (Ảnh hưởng đến sinh hoạt hàng ngày)</option>
+                                                <option value="Sâu">Đau Sâu (Thường xuyên căng thẳng, đau nhức)</option>
                                             </select>
                                         </div>
 
@@ -448,7 +519,7 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                                             whileTap={{ scale: 0.98 }}
                                         >
                                             <span className="btn-shimmer" />
-                                            <span className="btn-text">View Recommended Service</span>
+                                            <span className="btn-text">Nhận Phác Đồ Trị Liệu Dành Riêng Cho Bạn</span>
                                         </motion.button>
                                     </form>
                                 </div>
