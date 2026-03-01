@@ -386,3 +386,72 @@
     transform: translateY(-3px);
     background: var(--color-primary-dark);
 }
+
+/* RESPONSIVE DESIGN FOR SMART CONSULTATION */
+@media (max-width: 1024px) {
+    .smart-suggestion {
+        padding: 1.5rem 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .smart-giant-input {
+        font-size: 2.2rem;
+        padding: 1rem 0;
+    }
+
+    .smart-suggestion {
+        padding: 1.2rem 2rem;
+        width: 100%;
+    }
+
+    .suggestion-text {
+        font-size: 1.6rem;
+        text-align: center;
+    }
+
+    .smart-form-section {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .smart-form-section h3 {
+        font-size: 1.6rem;
+    }
+
+    .form-group-modern input,
+    .form-group-modern select {
+        padding: 1.2rem 0.8rem 0.4rem;
+        font-size: 1rem;
+    }
+
+    .form-group-modern label {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .smart-container {
+        padding: 0 1rem;
+    }
+
+    .smart-giant-input {
+        font-size: 1.8rem;
+    }
+
+    .smart-suggestion {
+        padding: 1rem 1.5rem;
+    }
+
+    .suggestion-text {
+        font-size: 1.4rem;
+    }
+
+    .smart-submit-btn {
+        padding: 1.2rem;
+        font-size: 1rem;
+    }
+
+    .dashboard-header h2 {
+        font-size: 1.8rem;
+    }
+}

@@ -146,7 +146,7 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                         >🍃</motion.span>
                     </motion.div>
 
-                    <h1 className="section-title" id="hero-title" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '1rem' }}>
+                    <h1 className="section-title" id="hero-title" style={{ fontSize: 'clamp(1.8rem, 6vw, 4rem)', marginBottom: '1rem' }}>
                         Personalized<br />
                         <span className="title-accent">Healing Consultation</span>
                     </h1>

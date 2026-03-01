@@ -171,7 +171,53 @@ function BookPage({ step, userData, isActive }) {
     )
 }
 
+const THERAPIES = {
+    'energy-reset': {
+        name: 'Energy Reset: Deep Recovery Thai Therapy',
+        desc: 'Intensive Thai stretching, herbal hot compresses, and 528Hz healing frequencies to relieve physical fatigue and joint stiffness.',
+        duration: '120 mins',
+        image: '/hot-stone.png'
+    },
+    'jetlag-recovery': {
+        name: 'Jetlag Recovery: Wake Up Refreshed',
+        desc: 'Lymphatic drainage massage, rehydrating oils, and 963Hz Crown Frequency to clear mental fog and restore your natural circadian rhythm.',
+        duration: '90 mins',
+        image: '/essential-oils.png'
+    },
+    'silent-healing': {
+        name: 'Silent Healing: Total Silence Therapy',
+        desc: 'A calming massage in total silence, accompanied by 432Hz nature-aligned soundscapes and grounding oils to cure mental burnout.',
+        duration: '90 mins',
+        image: '/meditation.png'
+    },
+    'default': {
+        name: 'Signature Holistic Journey',
+        desc: 'A bespoke treatment session specifically designed to target your unique physical and emotional state.',
+        duration: '135 mins',
+        image: '/flower-bloom.png'
+    }
+}
+
+function getRecommendedTherapy(condition) {
+    if (!condition) return THERAPIES['default']
+    const c = condition.toLowerCase()
+
+    if (c.includes('pain') || c.includes('shoulder') || c.includes('neck') || c.includes('back') || c.includes('sore') || c.includes('stiff')) {
+        return THERAPIES['energy-reset']
+    }
+    if (c.includes('sleep') || c.includes('insomnia') || c.includes('trouble') || c.includes('jetlag')) {
+        return THERAPIES['jetlag-recovery']
+    }
+    if (c.includes('stress') || c.includes('tension') || c.includes('heavy') || c.includes('burnout') || c.includes('overload')) {
+        return THERAPIES['silent-healing']
+    }
+
+    return THERAPIES['default']
+}
+
 function RecommendationPage({ userData }) {
+    const recommendation = getRecommendedTherapy(userData?.condition)
+
     return (
         <motion.div
             className="book-page recommendation-page"
@@ -184,8 +230,8 @@ function RecommendationPage({ userData }) {
             <div className="page-content rec-page-content">
                 <div className="page-image-side">
                     <motion.img
-                        src="/hot-stone.png"
-                        alt="Signature Holistic Journey"
+                        src={recommendation.image}
+                        alt={recommendation.name}
                         className="page-image"
                         initial={{ scale: 1.15, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -204,13 +250,13 @@ function RecommendationPage({ userData }) {
                         <p className="rec-greeting">
                             Welcome{userData?.name ? ` ${userData.name}` : ''},
                         </p>
-                        <p className="rec-subtitle">Based on your experience, we recommend:</p>
+                        <p className="rec-subtitle">Based on your condition, your ideal healing journey is:</p>
 
                         <div className="rec-service-block">
                             <div className="rec-sparkle">✦</div>
-                            <h3 className="rec-service-name">Signature Holistic Journey</h3>
+                            <h3 className="rec-service-name">{recommendation.name}</h3>
                             <p className="rec-service-desc">
-                                A bespoke treatment session specifically for your unique physical and emotional state
+                                {recommendation.desc}
                             </p>
                         </div>
 
@@ -221,7 +267,7 @@ function RecommendationPage({ userData }) {
                             </div>
                             <div className="rec-detail-item">
                                 <span className="rec-detail-label">Duration</span>
-                                <span className="rec-detail-value">135 mins</span>
+                                <span className="rec-detail-value">{recommendation.duration}</span>
                             </div>
                             <div className="rec-detail-item">
                                 <span className="rec-detail-label">Contact</span>

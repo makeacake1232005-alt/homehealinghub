@@ -945,3 +945,15 @@
         background-position: -100% 50%;
     }
 }
+
+@media (max-width: 600px) {
+    .epic-btn-container {
+        padding: 1rem 1.5rem;
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+    }
+
+    .epic-btn-container:hover {
+        letter-spacing: 2px;
+    }
+}
