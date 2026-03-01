@@ -154,12 +154,9 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                         Hãy tĩnh tâm và chia sẻ cảm nhận hiện tại của bạn. Nhấn vào nút bên dưới để bước vào không gian chăm sóc dành riêng cho bạn.
                     </p>
 
-                    <div className="epic-btn-container" onClick={handleStartConsultation}>
-                        <div className="epic-btn-glow" />
-                        <div className="epic-btn-inner">
-                            Personal Healing Consultation
-                        </div>
-                    </div>
+                    <button className="epic-btn-container" onClick={handleStartConsultation}>
+                        Personal Healing Consultation
+                    </button>
 
                 </div>
             </motion.div>
