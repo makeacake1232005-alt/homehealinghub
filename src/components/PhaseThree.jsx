@@ -5,37 +5,43 @@ import { useLang } from '../contexts/LanguageContext'
 import './PhaseThree.css'
 
 const STEP_META = [
-    { id: 1, type: 'empathy', icon: '💆', image: '/shoulder-relief.png', color: '#d4a5a5' },
-    { id: 2, type: 'solution', icon: '🌿', image: '/essential-oils.png', color: '#5c7a3d' },
-    { id: 3, type: 'solution', icon: '✨', image: '/infrared-therapy.png', color: '#c8a96e' },
-    { id: 4, type: 'solution', icon: '🧘', image: '/meditation.png', color: '#7a9c5a' },
-    { id: 5, type: 'result', icon: '🌸', image: '/flower-bloom.png', color: '#d4a5a5' },
+    { id: 1, type: 'empathy', image: '/shoulder-relief.png', color: '#7ab53a', label: 'I' },
+    { id: 2, type: 'solution', image: '/essential-oils.png', color: '#5c8a30', label: 'II' },
+    { id: 3, type: 'solution', image: '/infrared-therapy.png', color: '#c8a96e', label: 'III' },
+    { id: 4, type: 'solution', image: '/meditation.png', color: '#7a9c5a', label: 'IV' },
+    { id: 5, type: 'result', image: '/flower-bloom.png', color: '#a0c870', label: 'V' },
 ]
 
 const pageVariants = {
     enter: (direction) => ({
         opacity: 0,
-        x: direction > 0 ? 300 : -300,
-        scale: 0.92,
-        rotateY: direction > 0 ? 15 : -15,
+        rotateY: direction > 0 ? 90 : -90,
+        scale: 0.85,
+        x: direction > 0 ? 100 : -100,
+        filter: 'brightness(0.3)',
     }),
     center: {
         opacity: 1,
-        x: 0,
-        scale: 1,
         rotateY: 0,
+        scale: 1,
+        x: 0,
+        filter: 'brightness(1)',
     },
     exit: (direction) => ({
         opacity: 0,
-        x: direction > 0 ? -300 : 300,
-        scale: 0.92,
-        rotateY: direction > 0 ? -15 : 15,
+        rotateY: direction > 0 ? -90 : 90,
+        scale: 0.85,
+        x: direction > 0 ? -100 : 100,
+        filter: 'brightness(0.3)',
     }),
 }
 
 const pageTransition = {
-    duration: 1.2,
-    ease: [0.22, 1, 0.36, 1],
+    duration: 1.0,
+    ease: [0.25, 0.46, 0.45, 0.94],
+    rotateY: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    opacity: { duration: 0.6 },
+    filter: { duration: 0.6 },
 }
 
 function BookPage({ step, stepData, userData, t }) {
@@ -53,6 +59,7 @@ function BookPage({ step, stepData, userData, t }) {
             exit="exit"
             transition={pageTransition}
             id={`book-page-${step.id}`}
+            style={{ transformStyle: 'preserve-3d' }}
         >
             <div className="page-content">
                 <div className="page-image-side">
@@ -60,9 +67,9 @@ function BookPage({ step, stepData, userData, t }) {
                         src={step.image}
                         alt={stepData.title}
                         className="page-image"
-                        initial={{ scale: 1.15, opacity: 0 }}
+                        initial={{ scale: 1.2, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 1.8, ease: 'easeOut', delay: 0.3 }}
+                        transition={{ duration: 2, ease: 'easeOut', delay: 0.2 }}
                     />
                     <div className="page-image-vignette" />
 
@@ -70,9 +77,9 @@ function BookPage({ step, stepData, userData, t }) {
                         className="page-floating-icon"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6, duration: 0.8 }}
+                        transition={{ delay: 0.5, duration: 0.8 }}
                     >
-                        {step.icon}
+                        {step.label}
                     </motion.div>
                 </div>
 
@@ -81,9 +88,9 @@ function BookPage({ step, stepData, userData, t }) {
                         className="page-text-content"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4, duration: 0.9 }}
+                        transition={{ delay: 0.3, duration: 0.9 }}
                     >
-                        <div className="page-badge" style={{ background: step.color + '18', color: step.color }}>
+                        <div className="page-badge" style={{ background: step.color + '20', color: step.color, borderColor: step.color + '30' }}>
                             {step.type === 'empathy' ? t.badgeEmpathy : step.type === 'result' ? t.badgeResult : `${t.badgeStep} ${step.id - 1}`}
                         </div>
 
@@ -93,7 +100,7 @@ function BookPage({ step, stepData, userData, t }) {
                             className="page-divider"
                             initial={{ scaleX: 0 }}
                             animate={{ scaleX: 1 }}
-                            transition={{ delay: 0.6, duration: 0.8 }}
+                            transition={{ delay: 0.5, duration: 0.8 }}
                             style={{ background: step.color, transformOrigin: 'left' }}
                         />
 
@@ -105,7 +112,7 @@ function BookPage({ step, stepData, userData, t }) {
                                 className="page-duration"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                transition={{ delay: 0.8 }}
+                                transition={{ delay: 0.7 }}
                             >
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={step.color} strokeWidth="2">
                                     <circle cx="12" cy="12" r="10" />
@@ -134,7 +141,6 @@ function RecommendationPage({ userData, t }) {
         if (!condition) return 'default'
         const c = condition.toLowerCase()
 
-        // Group 1: Physical Pain → Energy Reset
         if (c.includes('pain') || c.includes('shoulder') || c.includes('neck') || c.includes('back')
             || c.includes('sore') || c.includes('stiff') || c.includes('headache') || c.includes('head')
             || c.includes('muscle') || c.includes('joint') || c.includes('ache') || c.includes('hurt')
@@ -144,7 +150,6 @@ function RecommendationPage({ userData, t }) {
             return 'energy-reset'
         }
 
-        // Group 2: Sleep / Fatigue / Jetlag → Jetlag Recovery
         if (c.includes('sleep') || c.includes('insomnia') || c.includes('tired') || c.includes('fatigue')
             || c.includes('exhausted') || c.includes('jetlag') || c.includes('drowsy') || c.includes('restless')
             || c.includes('ngủ') || c.includes('mệt') || c.includes('kiệt') || c.includes('uể oải')
@@ -152,7 +157,6 @@ function RecommendationPage({ userData, t }) {
             return 'jetlag-recovery'
         }
 
-        // Group 3: Stress / Mental / Burnout → Silent Healing
         if (c.includes('stress') || c.includes('tension') || c.includes('heavy') || c.includes('burnout')
             || c.includes('anxiety') || c.includes('overwhelm') || c.includes('overload') || c.includes('mental')
             || c.includes('pressure') || c.includes('worry') || c.includes('nervous')
@@ -161,7 +165,6 @@ function RecommendationPage({ userData, t }) {
             return 'silent-healing'
         }
 
-        // Group 4: Couple / Romance / Together → Couple Healing
         if (c.includes('couple') || c.includes('partner') || c.includes('together') || c.includes('romantic')
             || c.includes('relationship') || c.includes('love') || c.includes('anniversary') || c.includes('date')
             || c.includes('cặp') || c.includes('đôi') || c.includes('tình') || c.includes('yêu')
@@ -183,6 +186,7 @@ function RecommendationPage({ userData, t }) {
             animate="center"
             exit="exit"
             transition={pageTransition}
+            style={{ transformStyle: 'preserve-3d' }}
         >
             <div className="page-content rec-page-content">
                 <div className="page-image-side">
@@ -190,9 +194,9 @@ function RecommendationPage({ userData, t }) {
                         src={REC_IMAGES[key]}
                         alt={rec.name}
                         className="page-image"
-                        initial={{ scale: 1.15, opacity: 0 }}
+                        initial={{ scale: 1.2, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 1.8, ease: 'easeOut', delay: 0.3 }}
+                        transition={{ duration: 2, ease: 'easeOut', delay: 0.2 }}
                     />
                     <div className="page-image-vignette" />
                 </div>
@@ -202,7 +206,7 @@ function RecommendationPage({ userData, t }) {
                         className="rec-text-content"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4, duration: 0.9 }}
+                        transition={{ delay: 0.3, duration: 0.9 }}
                     >
                         <p className="rec-greeting">
                             {t.recWelcome}{userData?.name ? ` ${userData.name}` : ''},
@@ -210,7 +214,7 @@ function RecommendationPage({ userData, t }) {
                         <p className="rec-subtitle">{t.recSubtitle}</p>
 
                         <div className="rec-service-block">
-                            <div className="rec-sparkle">✦</div>
+                            <div className="rec-sparkle">&#10022;</div>
                             <h3 className="rec-service-name">{rec.name}</h3>
                             <p className="rec-service-desc">{rec.desc}</p>
                         </div>
@@ -350,8 +354,8 @@ export default function PhaseThree({ userData }) {
                 <div className="book-header-inner">
                     <div className="book-logo" id="logo-warm">
                         <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-                            <circle cx="16" cy="16" r="14" stroke="#5c7a3d" strokeWidth="1.5" fill="none" />
-                            <path d="M16 6C16 6 10 11 10 16C10 19.3 12.7 22 16 22C19.3 22 22 19.3 22 16C22 11 16 6 16 6Z" fill="#5c7a3d" opacity="0.8" />
+                            <circle cx="16" cy="16" r="14" stroke="#7ab53a" strokeWidth="1.5" fill="none" />
+                            <path d="M16 6C16 6 10 11 10 16C10 19.3 12.7 22 16 22C19.3 22 22 19.3 22 16C22 11 16 6 16 6Z" fill="#7ab53a" opacity="0.8" />
                         </svg>
                         <span>Home Healing Hub</span>
                     </div>

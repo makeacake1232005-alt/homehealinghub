@@ -145,12 +145,12 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                             className="leaf leaf-1"
                             animate={{ y: [0, -8, 0], rotate: [0, 5, 0] }}
                             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                        >🌿</motion.span>
+                        ><svg width="20" height="20" viewBox="0 0 24 24" fill="#5c7a3d" opacity="0.7"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z" /></svg></motion.span>
                         <motion.span
                             className="leaf leaf-2"
                             animate={{ y: [0, -6, 0], rotate: [0, -8, 0] }}
                             transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                        >🍃</motion.span>
+                        ><svg width="18" height="18" viewBox="0 0 24 24" fill="#7a9c5a" opacity="0.6"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z" /></svg></motion.span>
                     </motion.div>
 
                     <motion.h1
