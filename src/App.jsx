@@ -4,8 +4,10 @@ import PhaseOne from './components/PhaseOne'
 import PhaseTwo from './components/PhaseTwo'
 import PhaseThree from './components/PhaseThree'
 import FallingPetals from './components/FallingPetals'
+import LanguageToggle from './components/LanguageToggle'
 import { useAmbientSound } from './components/AmbientSound'
 import AmbientSoundToggle from './components/AmbientSound'
+import './components/LanguageToggle.css'
 import './App.css'
 
 function App() {
@@ -16,7 +18,6 @@ function App() {
     messages: []
   })
 
-  // Global ambient sound
   const ambient = useAmbientSound()
 
   useEffect(() => {
@@ -42,8 +43,9 @@ function App() {
     <div className="app" id="app-root">
       <FallingPetals />
 
-      {/* Optional floating toggle to let user pause if they want, but it starts automatically on interaction */}
-      <div style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 9999 }}>
+      {/* Fixed bottom controls */}
+      <div className="fixed-controls">
+        <LanguageToggle />
         <AmbientSoundToggle ambient={ambient} />
       </div>
 

@@ -1,23 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLang } from '../contexts/LanguageContext'
 import './SmartPromptConsultation.css'
-
-const SUGGESTIONS = [
-    { keywords: ['n', 'ne', 'neck', 'shoulder', 'pain'], text: 'Neck & Shoulder Pain?', id: 'vai-gay' },
-    { keywords: ['s', 'sl', 'sleep', 'insomnia', 'trouble'], text: 'Trouble Sleeping?', id: 'mat-ngu' },
-    { keywords: ['s', 'st', 'stress', 'tension', 'heavy'], text: 'Heavy Stress & Tension?', id: 'stress' },
-    { keywords: ['b', 'ba', 'back', 'lower'], text: 'Lower Back Pain?', id: 'that-lung' },
-]
 
 export default function SmartPromptConsultation({ onComplete }) {
     const [input, setInput] = useState('')
     const [suggestion, setSuggestion] = useState(null)
-    const [phase, setPhase] = useState('input') // 'input' | 'epic' | 'form'
-
-    // Form state
+    const [phase, setPhase] = useState('input')
     const [formData, setFormData] = useState({ name: '', phone: '', email: '', intensity: 'Moderate' })
-
     const inputRef = useRef(null)
+    const { t } = useLang()
 
     useEffect(() => {
         if (phase === 'input') {
@@ -34,7 +26,7 @@ export default function SmartPromptConsultation({ onComplete }) {
             return
         }
 
-        const found = SUGGESTIONS.find(s => s.keywords.some(k => val.includes(k)))
+        const found = t.suggestions.find(s => s.keywords.some(k => val.includes(k)))
         if (found) {
             setSuggestion(found)
         } else {
@@ -70,19 +62,42 @@ export default function SmartPromptConsultation({ onComplete }) {
 
     return (
         <div className="smart-consultation">
-            {/* BACKGROUND IMAGES FOR LIGHT THEME */}
             <div className="smart-bg-wrapper">
                 <img src="/spa-banner.png" alt="Spa Background" className="smart-bg-image" />
                 <div className="smart-bg-overlay" />
-
-                {/* Natural Sun Rays / Ambient Lights */}
                 <div className="ambient-ray ray-1" />
                 <div className="ambient-ray ray-2" />
                 <div className="ambient-ray ray-3" />
             </div>
 
+            {/* Floating nature particles */}
+            <div className="smart-particles">
+                {[...Array(8)].map((_, i) => (
+                    <motion.div
+                        key={i}
+                        className="smart-particle"
+                        style={{
+                            left: `${10 + Math.random() * 80}%`,
+                            top: `${10 + Math.random() * 80}%`,
+                            width: `${3 + Math.random() * 5}px`,
+                            height: `${3 + Math.random() * 5}px`,
+                        }}
+                        animate={{
+                            y: [0, -30 - Math.random() * 40, 0],
+                            opacity: [0.2, 0.6, 0.2],
+                            scale: [1, 1.5, 1],
+                        }}
+                        transition={{
+                            duration: 4 + Math.random() * 4,
+                            repeat: Infinity,
+                            delay: Math.random() * 3,
+                            ease: 'easeInOut',
+                        }}
+                    />
+                ))}
+            </div>
+
             <AnimatePresence mode="wait">
-                {/* PHASE 1: THANH TÀNG HÌNH */}
                 {phase === 'input' && (
                     <motion.div
                         key="input-phase"
@@ -92,12 +107,22 @@ export default function SmartPromptConsultation({ onComplete }) {
                         exit={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
                         transition={{ duration: 0.6 }}
                     >
+                        {/* Decorative icon above input */}
+                        <motion.div
+                            className="input-icon-decor"
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.3, type: 'spring' }}
+                        >
+                            🌿
+                        </motion.div>
+
                         <div className="smart-input-wrapper">
                             <input
                                 ref={inputRef}
                                 type="text"
                                 className="smart-giant-input"
-                                placeholder="Describe your current condition"
+                                placeholder={t.inputPlaceholder}
                                 value={input}
                                 onChange={handleInputChange}
                                 onKeyDown={handleKeyDown}
@@ -110,22 +135,21 @@ export default function SmartPromptConsultation({ onComplete }) {
                             {suggestion && (
                                 <motion.div
                                     className="smart-suggestion"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
+                                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: -20, scale: 0.95 }}
                                     onClick={() => handleSelect(suggestion.text)}
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                 >
                                     <span className="suggestion-text">{suggestion.text}</span>
-                                    <span className="suggestion-hint">↵ Press Enter or Tap</span>
+                                    <span className="suggestion-hint">{t.suggestionHint}</span>
                                 </motion.div>
                             )}
                         </AnimatePresence>
                     </motion.div>
                 )}
 
-                {/* PHASE 2: EPIC TRANSITION */}
                 {phase === 'epic' && (
                     <motion.div
                         key="epic-phase"
@@ -146,7 +170,6 @@ export default function SmartPromptConsultation({ onComplete }) {
                     </motion.div>
                 )}
 
-                {/* PHASE 3: CHAT BOX & FORM */}
                 {phase === 'form' && (
                     <motion.div
                         key="form-phase"
@@ -156,42 +179,41 @@ export default function SmartPromptConsultation({ onComplete }) {
                         transition={{ duration: 0.8 }}
                     >
                         <div className="dashboard-header">
-                            <h2>Healing Path: <span>{input}</span></h2>
+                            <h2>{t.healingPath}: <span>{input}</span></h2>
                         </div>
 
                         <div className="dashboard-content no-chat">
-                            {/* Full Form Centered */}
                             <div className="smart-form-section-wrapper standalone-form">
                                 <img src="/meditation.png" alt="Meditation" className="form-bg-img" />
                                 <div className="smart-form-section">
-                                    <h3>Reservation Details</h3>
+                                    <h3>{t.reservationTitle}</h3>
                                     <form onSubmit={handleSubmitForm} className="smart-form">
                                         <div className="form-group-modern">
                                             <input type="text" id="sf-name" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder=" " />
-                                            <label htmlFor="sf-name">Full Name</label>
+                                            <label htmlFor="sf-name">{t.labelName}</label>
                                         </div>
                                         <div className="form-group-modern">
                                             <input type="tel" id="sf-phone" required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder=" " />
-                                            <label htmlFor="sf-phone">Phone Number</label>
+                                            <label htmlFor="sf-phone">{t.labelPhone}</label>
                                         </div>
                                         <div className="form-group-modern">
                                             <input type="email" id="sf-email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder=" " />
-                                            <label htmlFor="sf-email">Email (Optional)</label>
+                                            <label htmlFor="sf-email">{t.labelEmail}</label>
                                         </div>
                                         <div className="form-group-modern select-modern">
                                             <select id="sf-intensity" value={formData.intensity} onChange={(e) => setFormData({ ...formData, intensity: e.target.value })}>
-                                                <option value="Mild">Intensity: Mild (Occasional pain)</option>
-                                                <option value="Moderate">Intensity: Moderate (Affects daily life)</option>
-                                                <option value="Severe">Intensity: Severe (Constant ache)</option>
+                                                <option value="Mild">{t.intensityMild}</option>
+                                                <option value="Moderate">{t.intensityModerate}</option>
+                                                <option value="Severe">{t.intensitySevere}</option>
                                             </select>
                                         </div>
                                         <motion.button
                                             type="submit"
                                             className="smart-submit-btn"
-                                            whileHover={{ scale: 1.02 }}
+                                            whileHover={{ scale: 1.02, boxShadow: '0 20px 50px rgba(92, 122, 61, 0.4)' }}
                                             whileTap={{ scale: 0.98 }}
                                         >
-                                            Complete & Preview Plan
+                                            {t.submitBtn}
                                         </motion.button>
                                     </form>
                                 </div>

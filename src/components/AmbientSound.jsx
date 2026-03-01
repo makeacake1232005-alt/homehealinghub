@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback, useState } from 'react'
+import { useLang } from '../contexts/LanguageContext'
 
 /* ===========================================
    AMBIENT SOUND ENGINE - FOREST CHILL
@@ -350,14 +351,16 @@ export function useAmbientSound() {
     return { start, stop, isPlaying, playLeafRustle, playPageTurn, playBirdChirp }
 }
 
+
 export default function AmbientSoundToggle({ ambient }) {
+    const { t } = useLang()
     return (
         <button
             className="ambient-toggle"
             id="ambient-toggle"
             onClick={() => ambient.isPlaying ? ambient.stop() : ambient.start()}
             aria-label={ambient.isPlaying ? 'Mute' : 'Play'}
-            title={ambient.isPlaying ? 'Mute forest sound' : 'Play forest sound'}
+            title={ambient.isPlaying ? t.muteLabel : t.playLabel}
         >
             {ambient.isPlaying ? (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

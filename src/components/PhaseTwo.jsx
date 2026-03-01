@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLang } from '../contexts/LanguageContext'
 import './PhaseTwo.css'
-
-const WHISPER_MESSAGES = [
-    'Relax your shoulders...',
-    'Take a deep breath...',
-    'Your personalized healing path is ready.',
-]
 
 export default function PhaseTwo({ onComplete, userData }) {
     const [currentWhisper, setCurrentWhisper] = useState(0)
     const [showLiquid, setShowLiquid] = useState(false)
+    const { t } = useLang()
+
+    const WHISPER_MESSAGES = [t.whisper1, t.whisper2, t.whisper3]
 
     useEffect(() => {
         const t0 = setTimeout(() => setShowLiquid(true), 100)
@@ -30,6 +28,8 @@ export default function PhaseTwo({ onComplete, userData }) {
         }
     }, [onComplete])
 
+    const dedication = t.whisperDedication.replace('{name}', userData?.name || '')
+
     return (
         <motion.div
             className="phase-two"
@@ -38,7 +38,6 @@ export default function PhaseTwo({ onComplete, userData }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
         >
-            {/* Liquid expanding from center */}
             <motion.div
                 className="liquid-bg"
                 initial={{ scale: 0, borderRadius: '50%' }}
@@ -49,7 +48,6 @@ export default function PhaseTwo({ onComplete, userData }) {
                 transition={{ duration: 3.5, ease: [0.22, 1, 0.36, 1] }}
             />
 
-            {/* Warm color overlay */}
             <motion.div
                 className="color-wash"
                 initial={{ opacity: 0 }}
@@ -57,7 +55,6 @@ export default function PhaseTwo({ onComplete, userData }) {
                 transition={{ duration: 2.5, delay: 0.3 }}
             />
 
-            {/* Background image (subtle) */}
             <motion.div
                 className="transition-bg-image"
                 initial={{ opacity: 0 }}
@@ -67,7 +64,6 @@ export default function PhaseTwo({ onComplete, userData }) {
                 <img src="/flower-bloom.png" alt="" aria-hidden="true" />
             </motion.div>
 
-            {/* Organic floating blobs */}
             <div className="organic-blobs">
                 {[...Array(6)].map((_, i) => (
                     <motion.div
@@ -89,7 +85,6 @@ export default function PhaseTwo({ onComplete, userData }) {
                 ))}
             </div>
 
-            {/* Expanding orb */}
             <motion.div
                 className="expanding-orb"
                 initial={{ scale: 1, opacity: 0.9 }}
@@ -100,7 +95,6 @@ export default function PhaseTwo({ onComplete, userData }) {
                 transition={{ duration: 3, ease: [0.22, 1, 0.36, 1] }}
             />
 
-            {/* Whisper text */}
             <div className="whisper-container">
                 <AnimatePresence mode="wait">
                     <motion.p
@@ -122,12 +116,11 @@ export default function PhaseTwo({ onComplete, userData }) {
                         animate={{ opacity: 0.5 }}
                         transition={{ delay: 2.5, duration: 1 }}
                     >
-                        — dành cho {userData.name} —
+                        {dedication}
                     </motion.p>
                 )}
             </div>
 
-            {/* Progress dots */}
             <div className="transition-progress">
                 {WHISPER_MESSAGES.map((_, idx) => (
                     <motion.div

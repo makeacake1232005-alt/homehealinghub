@@ -51,6 +51,28 @@
     margin-bottom: 4rem;
 }
 
+/* Floating particles */
+.smart-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.smart-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(122, 156, 90, 0.5), transparent);
+    box-shadow: 0 0 10px rgba(122, 156, 90, 0.2);
+}
+
+/* Decorative icon */
+.input-icon-decor {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 4px 15px rgba(92, 122, 61, 0.3));
+}
+
 .smart-giant-input {
     width: 100%;
     background: transparent;

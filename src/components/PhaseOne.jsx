@@ -1,20 +1,16 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import GiantConsultation from './GiantConsultation'
-import BentoConsultation from './BentoConsultation'
 import SmartPromptConsultation from './SmartPromptConsultation'
+import { useLang } from '../contexts/LanguageContext'
 import './PhaseOne.css'
-
-
-// Removed ExperienceShowcase
 
 export default function PhaseOne({ onComplete, userData, setUserData }) {
     const [wizardActive, setWizardActive] = useState(null)
     const [isTransitioning, setIsTransitioning] = useState(false)
+    const { t } = useLang()
 
     const handleStartConsultation = () => {
         setIsTransitioning(true)
-        // Hiệu ứng cực đỉnh kéo dài 1.5s trước khi mở form smart
         setTimeout(() => {
             setWizardActive('smart')
         }, 1500)
@@ -77,13 +73,13 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                             <span className="logo-text">Home Healing Hub</span>
                         </div>
                         <nav className="header-nav" id="main-nav">
-                            <a href="#" className="nav-link active">HOME</a>
-                            <a href="#" className="nav-link">ABOUT US</a>
-                            <a href="#" className="nav-link">THE JOURNAL</a>
-                            <a href="#" className="nav-link">WELLNESS COLLECTION</a>
-                            <a href="#" className="nav-link">HEALING JOURNEYS</a>
-                            <a href="#" className="nav-link">MEMBERSHIP PACKAGE</a>
-                            <a href="#" className="nav-link">CONTACT US</a>
+                            <a href="#" className="nav-link active">{t.navHome}</a>
+                            <a href="#" className="nav-link">{t.navAbout}</a>
+                            <a href="#" className="nav-link">{t.navJournal}</a>
+                            <a href="#" className="nav-link">{t.navWellness}</a>
+                            <a href="#" className="nav-link">{t.navJourneys}</a>
+                            <a href="#" className="nav-link">{t.navMembership}</a>
+                            <a href="#" className="nav-link">{t.navContact}</a>
                         </nav>
                         <div className="header-icons">
                             <button className="icon-btn" aria-label="Account">
@@ -96,7 +92,7 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                     </div>
                 </motion.header>
 
-                {/* Hero Banner with Spa Image */}
+                {/* Hero Banner */}
                 <motion.section
                     className="hero-banner"
                     initial={{ opacity: 0 }}
@@ -124,10 +120,37 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                             transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
                         />
                     </div>
+
+                    {/* Hero text overlay */}
+                    <motion.div
+                        className="hero-text-overlay"
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.8, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <h2 className="hero-tagline">Home Healing Hub</h2>
+                        <p className="hero-tagline-sub">Where Nature Meets Healing</p>
+                    </motion.div>
                 </motion.section>
 
-                {/* Main Content Area (Consultation Start Button) */}
-                <div className="main-content-area" id="consultation-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '6rem auto 10rem', textAlign: 'center' }}>
+                {/* Scrolling image gallery */}
+                <div className="gallery-strip">
+                    <motion.div
+                        className="gallery-track"
+                        animate={{ x: [0, '-50%'] }}
+                        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+                    >
+                        {['/essential-oils.png', '/hot-stone.png', '/meditation.png', '/shoulder-relief.png', '/flower-bloom.png', '/infrared-therapy.png',
+                            '/essential-oils.png', '/hot-stone.png', '/meditation.png', '/shoulder-relief.png', '/flower-bloom.png', '/infrared-therapy.png'].map((src, i) => (
+                                <div className="gallery-item" key={i}>
+                                    <img src={src} alt="" />
+                                </div>
+                            ))}
+                    </motion.div>
+                </div>
+
+                {/* Main Content Area */}
+                <div className="main-content-area" id="consultation-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '4rem auto 8rem', textAlign: 'center' }}>
                     <motion.div
                         className="floating-leaves"
                         initial={{ opacity: 0 }}
@@ -146,18 +169,38 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                         >🍃</motion.span>
                     </motion.div>
 
-                    <h1 className="section-title" id="hero-title" style={{ fontSize: 'clamp(1.8rem, 6vw, 4rem)', marginBottom: '1rem' }}>
-                        Personalized<br />
-                        <span className="title-accent">Healing Consultation</span>
-                    </h1>
-                    <p className="section-subtitle" style={{ fontSize: '1.2rem', marginBottom: '4rem', maxWidth: '600px' }}>
-                        Take a deep breath and share how you feel right now. Click the button below to enter your private sanctuary.
-                    </p>
+                    <motion.h1
+                        className="section-title" id="hero-title"
+                        style={{ fontSize: 'clamp(1.8rem, 6vw, 4rem)', marginBottom: '1rem' }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.9 }}
+                    >
+                        {t.heroTitle1}<br />
+                        <span className="title-accent">{t.heroTitle2}</span>
+                    </motion.h1>
+                    <motion.p
+                        className="section-subtitle"
+                        style={{ fontSize: '1.2rem', marginBottom: '4rem', maxWidth: '600px' }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.9, delay: 0.2 }}
+                    >
+                        {t.heroSubtitle}
+                    </motion.p>
 
-                    <button className="epic-btn-container" onClick={handleStartConsultation}>
-                        Personal Healing Consultation
-                    </button>
-
+                    <motion.button
+                        className="epic-btn-container"
+                        onClick={handleStartConsultation}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                    >
+                        {t.heroBtn}
+                    </motion.button>
                 </div>
             </motion.div>
         </>

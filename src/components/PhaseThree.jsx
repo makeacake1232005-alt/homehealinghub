@@ -1,62 +1,15 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import AmbientSoundToggle, { useAmbientSound } from './AmbientSound'
+import { useLang } from '../contexts/LanguageContext'
 import './PhaseThree.css'
 
-const HEALING_STEPS = [
-    {
-        id: 1,
-        type: 'empathy',
-        title: 'We Understand You',
-        icon: '💆',
-        description: 'Because you are feeling heavy and stressed...',
-        detail: 'Your body is sending a signal for care. This is the first step of your healing journey — where we listen and understand.',
-        image: '/shoulder-relief.png',
-        color: '#d4a5a5',
-    },
-    {
-        id: 2,
-        type: 'solution',
-        title: 'Deep Muscle Release',
-        icon: '🌿',
-        description: 'Step 1: Herbal Essential Oil Therapy',
-        detail: 'Organic essential oil therapy combined with Swedish massage techniques relaxes deep muscle groups, effectively reducing pain from the first 60 minutes.',
-        duration: '60 mins',
-        image: '/essential-oils.png',
-        color: '#5c7a3d',
-    },
-    {
-        id: 3,
-        type: 'solution',
-        title: 'Energy Regeneration',
-        icon: '✨',
-        description: 'Step 2: Hot Stone & Light Therapy',
-        detail: 'Hot basalt stones placed on acupressure points combined with infrared therapy light activate blood circulation and regenerate new cells.',
-        duration: '45 mins',
-        image: '/infrared-therapy.png',
-        color: '#c8a96e',
-    },
-    {
-        id: 4,
-        type: 'solution',
-        title: 'Mind Balancing',
-        icon: '🧘',
-        description: 'Step 3: Meditation & Aromatherapy',
-        detail: 'A quiet private room with agarwood scent and Theta brainwave music, guided personal meditation helps the mind shed all pressure.',
-        duration: '30 mins',
-        image: '/meditation.png',
-        color: '#7a9c5a',
-    },
-    {
-        id: 5,
-        type: 'result',
-        title: 'Total Rejuvenation',
-        icon: '🌸',
-        description: 'Result: Body & Mind Harmony',
-        detail: 'After the journey, you will clearly feel the difference: light shoulders, clear mind, deeper sleep, and spreading positive energy.',
-        image: '/flower-bloom.png',
-        color: '#d4a5a5',
-    },
+const STEP_META = [
+    { id: 1, type: 'empathy', icon: '💆', image: '/shoulder-relief.png', color: '#d4a5a5' },
+    { id: 2, type: 'solution', icon: '🌿', image: '/essential-oils.png', color: '#5c7a3d' },
+    { id: 3, type: 'solution', icon: '✨', image: '/infrared-therapy.png', color: '#c8a96e' },
+    { id: 4, type: 'solution', icon: '🧘', image: '/meditation.png', color: '#7a9c5a' },
+    { id: 5, type: 'result', icon: '🌸', image: '/flower-bloom.png', color: '#d4a5a5' },
 ]
 
 const pageVariants = {
@@ -85,10 +38,10 @@ const pageTransition = {
     ease: [0.22, 1, 0.36, 1],
 }
 
-function BookPage({ step, userData, isActive }) {
-    let description = step.description
+function BookPage({ step, stepData, userData, t }) {
+    let description = stepData.description
     if (step.type === 'empathy' && userData?.condition) {
-        description = `Because you are feeling ${userData.condition.toLowerCase().substring(0, 80)}...`
+        description = `${t.conditionPrefix} ${userData.condition.toLowerCase().substring(0, 80)}...`
     }
 
     return (
@@ -102,11 +55,10 @@ function BookPage({ step, userData, isActive }) {
             id={`book-page-${step.id}`}
         >
             <div className="page-content">
-                {/* Image half */}
                 <div className="page-image-side">
                     <motion.img
                         src={step.image}
-                        alt={step.title}
+                        alt={stepData.title}
                         className="page-image"
                         initial={{ scale: 1.15, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -114,7 +66,6 @@ function BookPage({ step, userData, isActive }) {
                     />
                     <div className="page-image-vignette" />
 
-                    {/* Floating icon */}
                     <motion.div
                         className="page-floating-icon"
                         initial={{ opacity: 0, y: 20 }}
@@ -125,7 +76,6 @@ function BookPage({ step, userData, isActive }) {
                     </motion.div>
                 </div>
 
-                {/* Text half */}
                 <div className="page-text-side">
                     <motion.div
                         className="page-text-content"
@@ -134,10 +84,10 @@ function BookPage({ step, userData, isActive }) {
                         transition={{ delay: 0.4, duration: 0.9 }}
                     >
                         <div className="page-badge" style={{ background: step.color + '18', color: step.color }}>
-                            {step.type === 'empathy' ? 'Empathy' : step.type === 'result' ? 'Result' : `Step ${step.id - 1}`}
+                            {step.type === 'empathy' ? t.badgeEmpathy : step.type === 'result' ? t.badgeResult : `${t.badgeStep} ${step.id - 1}`}
                         </div>
 
-                        <h2 className="page-title">{step.title}</h2>
+                        <h2 className="page-title">{stepData.title}</h2>
 
                         <motion.div
                             className="page-divider"
@@ -148,9 +98,9 @@ function BookPage({ step, userData, isActive }) {
                         />
 
                         <p className="page-description">{description}</p>
-                        <p className="page-detail">{step.detail}</p>
+                        <p className="page-detail">{stepData.detail}</p>
 
-                        {step.duration && (
+                        {stepData.duration && (
                             <motion.div
                                 className="page-duration"
                                 initial={{ opacity: 0 }}
@@ -161,7 +111,7 @@ function BookPage({ step, userData, isActive }) {
                                     <circle cx="12" cy="12" r="10" />
                                     <path d="M12 6v6l4 2" />
                                 </svg>
-                                <span>{step.duration}</span>
+                                <span>{stepData.duration}</span>
                             </motion.div>
                         )}
                     </motion.div>
@@ -171,52 +121,20 @@ function BookPage({ step, userData, isActive }) {
     )
 }
 
-const THERAPIES = {
-    'energy-reset': {
-        name: 'Energy Reset: Deep Recovery Thai Therapy',
-        desc: 'Intensive Thai stretching, herbal hot compresses, and 528Hz healing frequencies to relieve physical fatigue and joint stiffness.',
-        duration: '120 mins',
-        image: '/hot-stone.png'
-    },
-    'jetlag-recovery': {
-        name: 'Jetlag Recovery: Wake Up Refreshed',
-        desc: 'Lymphatic drainage massage, rehydrating oils, and 963Hz Crown Frequency to clear mental fog and restore your natural circadian rhythm.',
-        duration: '90 mins',
-        image: '/essential-oils.png'
-    },
-    'silent-healing': {
-        name: 'Silent Healing: Total Silence Therapy',
-        desc: 'A calming massage in total silence, accompanied by 432Hz nature-aligned soundscapes and grounding oils to cure mental burnout.',
-        duration: '90 mins',
-        image: '/meditation.png'
-    },
-    'default': {
-        name: 'Signature Holistic Journey',
-        desc: 'A bespoke treatment session specifically designed to target your unique physical and emotional state.',
-        duration: '135 mins',
-        image: '/flower-bloom.png'
-    }
-}
+function RecommendationPage({ userData, t }) {
+    const REC_IMAGES = { 'energy-reset': '/hot-stone.png', 'jetlag-recovery': '/essential-oils.png', 'silent-healing': '/meditation.png', 'default': '/flower-bloom.png' }
 
-function getRecommendedTherapy(condition) {
-    if (!condition) return THERAPIES['default']
-    const c = condition.toLowerCase()
-
-    if (c.includes('pain') || c.includes('shoulder') || c.includes('neck') || c.includes('back') || c.includes('sore') || c.includes('stiff')) {
-        return THERAPIES['energy-reset']
-    }
-    if (c.includes('sleep') || c.includes('insomnia') || c.includes('trouble') || c.includes('jetlag')) {
-        return THERAPIES['jetlag-recovery']
-    }
-    if (c.includes('stress') || c.includes('tension') || c.includes('heavy') || c.includes('burnout') || c.includes('overload')) {
-        return THERAPIES['silent-healing']
+    function getTherapyKey(condition) {
+        if (!condition) return 'default'
+        const c = condition.toLowerCase()
+        if (c.includes('pain') || c.includes('shoulder') || c.includes('neck') || c.includes('back') || c.includes('sore') || c.includes('stiff') || c.includes('đau') || c.includes('vai') || c.includes('gáy') || c.includes('lưng')) return 'energy-reset'
+        if (c.includes('sleep') || c.includes('insomnia') || c.includes('trouble') || c.includes('jetlag') || c.includes('ngủ')) return 'jetlag-recovery'
+        if (c.includes('stress') || c.includes('tension') || c.includes('heavy') || c.includes('burnout') || c.includes('căng') || c.includes('nặng')) return 'silent-healing'
+        return 'default'
     }
 
-    return THERAPIES['default']
-}
-
-function RecommendationPage({ userData }) {
-    const recommendation = getRecommendedTherapy(userData?.condition)
+    const key = getTherapyKey(userData?.condition)
+    const rec = t.therapies[key]
 
     return (
         <motion.div
@@ -230,8 +148,8 @@ function RecommendationPage({ userData }) {
             <div className="page-content rec-page-content">
                 <div className="page-image-side">
                     <motion.img
-                        src={recommendation.image}
-                        alt={recommendation.name}
+                        src={REC_IMAGES[key]}
+                        alt={rec.name}
                         className="page-image"
                         initial={{ scale: 1.15, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -248,29 +166,27 @@ function RecommendationPage({ userData }) {
                         transition={{ delay: 0.4, duration: 0.9 }}
                     >
                         <p className="rec-greeting">
-                            Welcome{userData?.name ? ` ${userData.name}` : ''},
+                            {t.recWelcome}{userData?.name ? ` ${userData.name}` : ''},
                         </p>
-                        <p className="rec-subtitle">Based on your condition, your ideal healing journey is:</p>
+                        <p className="rec-subtitle">{t.recSubtitle}</p>
 
                         <div className="rec-service-block">
                             <div className="rec-sparkle">✦</div>
-                            <h3 className="rec-service-name">{recommendation.name}</h3>
-                            <p className="rec-service-desc">
-                                {recommendation.desc}
-                            </p>
+                            <h3 className="rec-service-name">{rec.name}</h3>
+                            <p className="rec-service-desc">{rec.desc}</p>
                         </div>
 
                         <div className="rec-details-row">
                             <div className="rec-detail-item">
-                                <span className="rec-detail-label">Intensity</span>
+                                <span className="rec-detail-label">{t.recIntensity}</span>
                                 <span className="rec-detail-value">{userData?.formData?.intensity || 'High'}</span>
                             </div>
                             <div className="rec-detail-item">
-                                <span className="rec-detail-label">Duration</span>
-                                <span className="rec-detail-value">{recommendation.duration}</span>
+                                <span className="rec-detail-label">{t.recDuration}</span>
+                                <span className="rec-detail-value">{rec.duration}</span>
                             </div>
                             <div className="rec-detail-item">
-                                <span className="rec-detail-label">Contact</span>
+                                <span className="rec-detail-label">{t.recContact}</span>
                                 <span className="rec-detail-value">0981073280</span>
                             </div>
                         </div>
@@ -283,7 +199,7 @@ function RecommendationPage({ userData }) {
                             whileTap={{ scale: 0.97 }}
                         >
                             <span className="cta-shimmer" />
-                            <span>Treat yourself to this experience</span>
+                            <span>{t.recCta}</span>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
@@ -302,16 +218,15 @@ export default function PhaseThree({ userData }) {
     const [userInteracted, setUserInteracted] = useState(false)
     const autoTimerRef = useRef(null)
     const ambient = useAmbientSound()
+    const { t } = useLang()
 
-    const totalPages = HEALING_STEPS.length + 1 // +1 for recommendation
+    const totalPages = STEP_META.length + 1
 
     const goToPage = useCallback((newPage, dir = 1) => {
         if (newPage < 0 || newPage >= totalPages) return
         setDirection(dir)
         setCurrentPage(newPage)
         ambient.playPageTurn()
-
-        // Random bird chirp on page turn
         setTimeout(() => ambient.playBirdChirp(), 300 + Math.random() * 500)
     }, [totalPages, ambient])
 
@@ -327,7 +242,6 @@ export default function PhaseThree({ userData }) {
         }
     }, [currentPage, goToPage])
 
-    // Auto-advance pages (book auto-scroll)
     useEffect(() => {
         if (isPaused || userInteracted) return
 
@@ -335,16 +249,15 @@ export default function PhaseThree({ userData }) {
             if (currentPage < totalPages - 1) {
                 nextPage()
             } else {
-                setIsPaused(true) // Stop at last page
+                setIsPaused(true)
             }
-        }, 3500) // 3.5s per page
+        }, 3500)
 
         return () => {
             if (autoTimerRef.current) clearTimeout(autoTimerRef.current)
         }
     }, [currentPage, isPaused, userInteracted, totalPages, nextPage])
 
-    // Start ambient sound on first render
     useEffect(() => {
         const timer = setTimeout(() => {
             ambient.start()
@@ -352,7 +265,6 @@ export default function PhaseThree({ userData }) {
         return () => clearTimeout(timer)
     }, []) // eslint-disable-line
 
-    // Keyboard navigation
     useEffect(() => {
         const handler = (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') {
@@ -382,10 +294,8 @@ export default function PhaseThree({ userData }) {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
         >
-            {/* Background */}
             <div className="book-bg">
                 <div className="book-bg-grad" />
-                {/* Subtle background image */}
                 <motion.div
                     className="book-bg-image"
                     animate={{ opacity: [0.03, 0.06, 0.03] }}
@@ -395,7 +305,6 @@ export default function PhaseThree({ userData }) {
                 </motion.div>
             </div>
 
-            {/* Header */}
             <header className="book-header">
                 <div className="book-header-inner">
                     <div className="book-logo" id="logo-warm">
@@ -415,9 +324,7 @@ export default function PhaseThree({ userData }) {
                 </div>
             </header>
 
-            {/* Book container */}
             <div className="book-container">
-                {/* Progress bar */}
                 <div className="book-progress-track">
                     <motion.div
                         className="book-progress-fill"
@@ -426,7 +333,6 @@ export default function PhaseThree({ userData }) {
                     />
                 </div>
 
-                {/* Page dots */}
                 <div className="page-dots">
                     {Array.from({ length: totalPages }).map((_, i) => (
                         <button
@@ -436,31 +342,31 @@ export default function PhaseThree({ userData }) {
                                 setUserInteracted(true)
                                 goToPage(i, i > currentPage ? 1 : -1)
                             }}
-                            aria-label={`Trang ${i + 1}`}
+                            aria-label={`Page ${i + 1}`}
                         />
                     ))}
                 </div>
 
-                {/* Book pages */}
                 <div className="book-viewport">
                     <AnimatePresence mode="wait" custom={direction}>
-                        {currentPage < HEALING_STEPS.length ? (
+                        {currentPage < STEP_META.length ? (
                             <BookPage
-                                key={`step-${HEALING_STEPS[currentPage].id}`}
-                                step={HEALING_STEPS[currentPage]}
+                                key={`step-${STEP_META[currentPage].id}`}
+                                step={STEP_META[currentPage]}
+                                stepData={t.steps[currentPage]}
                                 userData={userData}
-                                isActive={true}
+                                t={t}
                             />
                         ) : (
                             <RecommendationPage
                                 key="recommendation"
                                 userData={userData}
+                                t={t}
                             />
                         )}
                     </AnimatePresence>
                 </div>
 
-                {/* Navigation arrows */}
                 <div className="book-nav">
                     <motion.button
                         className="nav-arrow nav-prev"
@@ -468,7 +374,7 @@ export default function PhaseThree({ userData }) {
                         disabled={currentPage === 0}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        aria-label="Previous Page"
+                        aria-label={t.prevPage}
                     >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M15 18l-6-6 6-6" />
@@ -480,7 +386,7 @@ export default function PhaseThree({ userData }) {
                         disabled={currentPage === totalPages - 1}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        aria-label="Next Page"
+                        aria-label={t.nextPage}
                     >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M9 18l6-6-6-6" />
@@ -488,7 +394,6 @@ export default function PhaseThree({ userData }) {
                     </motion.button>
                 </div>
 
-                {/* Auto-play indicator */}
                 {!userInteracted && !isPaused && (
                     <motion.div
                         className="auto-play-hint"
@@ -503,16 +408,15 @@ export default function PhaseThree({ userData }) {
                             animate={{ scaleX: 1 }}
                             transition={{ duration: 3.5, ease: 'linear' }}
                         />
-                        <span>Auto-playing pages...</span>
+                        <span>{t.autoPlaying}</span>
                     </motion.div>
                 )}
             </div>
 
-            {/* Footer */}
             <footer className="book-footer" id="footer">
                 <div className="footer-inner">
-                    <span className="footer-brand">© 2026 Home Healing Hub</span>
-                    <span className="footer-hint">← → or click to flip pages</span>
+                    <span className="footer-brand">{t.footerBrand}</span>
+                    <span className="footer-hint">{t.footerHint}</span>
                 </div>
             </footer>
         </motion.div>
