@@ -14,32 +14,16 @@ export default function SmartPromptConsultation({ onComplete }) {
     const [suggestion, setSuggestion] = useState(null)
     const [phase, setPhase] = useState('input') // 'input' | 'epic' | 'form'
 
-    // Form and Chat state
-    const [chatMessages, setChatMessages] = useState([])
-    const [chatInput, setChatInput] = useState('')
+    // Form state
     const [formData, setFormData] = useState({ name: '', phone: '', email: '', intensity: 'Vừa' })
 
     const inputRef = useRef(null)
-    const chatEndRef = useRef(null)
 
     useEffect(() => {
         if (phase === 'input') {
             setTimeout(() => inputRef.current?.focus(), 500)
         }
     }, [phase])
-
-    useEffect(() => {
-        if (phase === 'form' && chatMessages.length === 0) {
-            const topic = input || (suggestion && suggestion.text?.replace('?', '')) || 'sức khỏe'
-            setChatMessages([
-                { sender: 'bot', text: `Chào bạn, tôi rất hiểu cảm giác khi bị ${topic}. Tôi là trợ lý AI của Home Healing Hub. Bạn muốn chia sẻ thêm gì với tôi không? Hoặc hãy hoàn thành form bên cạnh để nhận phác đồ trị liệu riêng nhé.` }
-            ])
-        }
-    }, [phase])
-
-    useEffect(() => {
-        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }, [chatMessages])
 
     const handleInputChange = (e) => {
         const val = e.target.value.toLowerCase()
@@ -72,20 +56,6 @@ export default function SmartPromptConsultation({ onComplete }) {
         }
     }
 
-    const handleSendChat = (e) => {
-        e.preventDefault()
-        if (!chatInput.trim()) return
-
-        const newMsg = chatInput.trim()
-        setChatMessages(prev => [...prev, { sender: 'user', text: newMsg }])
-        setChatInput('')
-
-        // Fake bot reply
-        setTimeout(() => {
-            setChatMessages(prev => [...prev, { sender: 'bot', text: 'Lắng nghe bạn. Tôi đã ghi nhận thêm chi tiết này vào hồ sơ của bạn. Hãy hoàn thiện thông tin bên phải để chúng ta bắt đầu nhé.' }])
-        }, 1200)
-    }
-
     const handleSubmitForm = (e) => {
         e.preventDefault()
         if (!formData.name || !formData.phone) return;
@@ -93,7 +63,7 @@ export default function SmartPromptConsultation({ onComplete }) {
         onComplete({
             name: formData.name,
             condition: input,
-            messages: chatMessages.filter(m => m.sender === 'user').map(m => m.text),
+            messages: [],
             formData: formData
         })
     }
@@ -184,42 +154,9 @@ export default function SmartPromptConsultation({ onComplete }) {
                             <h2>Thiết kế Lộ Trình: <span>{input}</span></h2>
                         </div>
 
-                        <div className="dashboard-content">
-                            {/* Left: Chat Box */}
-                            <div className="smart-chatbox-wrapper">
-                                <img src="/essential-oils.png" alt="Oils" className="chat-bg-img" />
-                                <div className="smart-chatbox">
-                                    <div className="chat-messages">
-                                        {chatMessages.map((msg, idx) => (
-                                            <motion.div
-                                                key={idx}
-                                                className={`chat-bubble-wrap ${msg.sender}`}
-                                                initial={{ opacity: 0, x: msg.sender === 'bot' ? -20 : 20 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                            >
-                                                <div className="chat-bubble">
-                                                    {msg.text}
-                                                </div>
-                                            </motion.div>
-                                        ))}
-                                        <div ref={chatEndRef} />
-                                    </div>
-                                    <form className="chat-input-area" onSubmit={handleSendChat}>
-                                        <input
-                                            type="text"
-                                            placeholder="Trò chuyện với trợ lý Healing..."
-                                            value={chatInput}
-                                            onChange={(e) => setChatInput(e.target.value)}
-                                        />
-                                        <button type="submit" className="chat-send-btn">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-
-                            {/* Right: Full Form */}
-                            <div className="smart-form-section-wrapper">
+                        <div className="dashboard-content no-chat">
+                            {/* Full Form Centered */}
+                            <div className="smart-form-section-wrapper standalone-form">
                                 <img src="/meditation.png" alt="Meditation" className="form-bg-img" />
                                 <div className="smart-form-section">
                                     <h3>Thông tin Đặt lịch</h3>
