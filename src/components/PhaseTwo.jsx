@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import './PhaseTwo.css'
 
 const WHISPER_MESSAGES = [
-    'Hãy thả lỏng hai vai của bạn...',
-    'Hít một hơi thật sâu...',
-    'Lộ trình thư giãn của riêng bạn đã sẵn sàng.',
+    'Relax your shoulders...',
+    'Take a deep breath...',
+    'Your personalized healing path is ready.',
 ]
 
 export default function PhaseTwo({ onComplete, userData }) {

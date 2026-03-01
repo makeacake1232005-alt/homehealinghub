@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import './SmartPromptConsultation.css'
 
 const SUGGESTIONS = [
-    { keywords: ['v', 'va', 'vai', 'gáy', 'cổ'], text: 'Đau mỏi vai gáy?', id: 'vai-gay' },
-    { keywords: ['m', 'ng', 'ngủ', 'mất', 'khó'], text: 'Mất ngủ kéo dài?', id: 'mat-ngu' },
-    { keywords: ['s', 'st', 'căng', 'thẳng', 'stress'], text: 'Stress ngập đầu?', id: 'stress' },
-    { keywords: ['l', 'ư', 'lưng', 'đau'], text: 'Đau nhức thắt lưng?', id: 'that-lung' },
+    { keywords: ['n', 'ne', 'neck', 'shoulder', 'pain'], text: 'Neck & Shoulder Pain?', id: 'vai-gay' },
+    { keywords: ['s', 'sl', 'sleep', 'insomnia', 'trouble'], text: 'Trouble Sleeping?', id: 'mat-ngu' },
+    { keywords: ['s', 'st', 'stress', 'tension', 'heavy'], text: 'Heavy Stress & Tension?', id: 'stress' },
+    { keywords: ['b', 'ba', 'back', 'lower'], text: 'Lower Back Pain?', id: 'that-lung' },
 ]
 
 export default function SmartPromptConsultation({ onComplete }) {
@@ -15,7 +15,7 @@ export default function SmartPromptConsultation({ onComplete }) {
     const [phase, setPhase] = useState('input') // 'input' | 'epic' | 'form'
 
     // Form state
-    const [formData, setFormData] = useState({ name: '', phone: '', email: '', intensity: 'Vừa' })
+    const [formData, setFormData] = useState({ name: '', phone: '', email: '', intensity: 'Moderate' })
 
     const inputRef = useRef(null)
 
@@ -92,7 +92,7 @@ export default function SmartPromptConsultation({ onComplete }) {
                                 ref={inputRef}
                                 type="text"
                                 className="smart-giant-input"
-                                placeholder="Bạn đang thấy khó chịu ở đâu?"
+                                placeholder="Where do you need healing today?"
                                 value={input}
                                 onChange={handleInputChange}
                                 onKeyDown={handleKeyDown}
@@ -113,7 +113,7 @@ export default function SmartPromptConsultation({ onComplete }) {
                                     whileTap={{ scale: 0.98 }}
                                 >
                                     <span className="suggestion-text">{suggestion.text}</span>
-                                    <span className="suggestion-hint">↵ Nhấn Enter hoặc Chạm</span>
+                                    <span className="suggestion-hint">↵ Press Enter or Tap</span>
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -151,7 +151,7 @@ export default function SmartPromptConsultation({ onComplete }) {
                         transition={{ duration: 0.8 }}
                     >
                         <div className="dashboard-header">
-                            <h2>Thiết kế Lộ Trình: <span>{input}</span></h2>
+                            <h2>Healing Path: <span>{input}</span></h2>
                         </div>
 
                         <div className="dashboard-content no-chat">
@@ -159,25 +159,25 @@ export default function SmartPromptConsultation({ onComplete }) {
                             <div className="smart-form-section-wrapper standalone-form">
                                 <img src="/meditation.png" alt="Meditation" className="form-bg-img" />
                                 <div className="smart-form-section">
-                                    <h3>Thông tin Đặt lịch</h3>
+                                    <h3>Reservation Details</h3>
                                     <form onSubmit={handleSubmitForm} className="smart-form">
                                         <div className="form-group-modern">
                                             <input type="text" id="sf-name" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder=" " />
-                                            <label htmlFor="sf-name">Họ và Tên</label>
+                                            <label htmlFor="sf-name">Full Name</label>
                                         </div>
                                         <div className="form-group-modern">
                                             <input type="tel" id="sf-phone" required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder=" " />
-                                            <label htmlFor="sf-phone">Số Điện Thoại</label>
+                                            <label htmlFor="sf-phone">Phone Number</label>
                                         </div>
                                         <div className="form-group-modern">
                                             <input type="email" id="sf-email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder=" " />
-                                            <label htmlFor="sf-email">Email (tùy chọn)</label>
+                                            <label htmlFor="sf-email">Email (Optional)</label>
                                         </div>
                                         <div className="form-group-modern select-modern">
                                             <select id="sf-intensity" value={formData.intensity} onChange={(e) => setFormData({ ...formData, intensity: e.target.value })}>
-                                                <option value="Nhẹ">Mức độ: Nhẹ (Thi thoảng đau)</option>
-                                                <option value="Vừa">Mức độ: Vừa (Ảnh hưởng sinh hoạt)</option>
-                                                <option value="Sâu">Mức độ: Nặng (Đau âm ỉ kéo dài)</option>
+                                                <option value="Mild">Intensity: Mild (Occasional pain)</option>
+                                                <option value="Moderate">Intensity: Moderate (Affects daily life)</option>
+                                                <option value="Severe">Intensity: Severe (Constant ache)</option>
                                             </select>
                                         </div>
                                         <motion.button
@@ -186,7 +186,7 @@ export default function SmartPromptConsultation({ onComplete }) {
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                         >
-                                            Hoàn tất & Nhận Phác Đồ
+                                            Complete & Preview Plan
                                         </motion.button>
                                     </form>
                                 </div>

@@ -356,8 +356,8 @@ export default function AmbientSoundToggle({ ambient }) {
             className="ambient-toggle"
             id="ambient-toggle"
             onClick={() => ambient.isPlaying ? ambient.stop() : ambient.start()}
-            aria-label={ambient.isPlaying ? 'Tắt âm thanh' : 'Bật âm thanh'}
-            title={ambient.isPlaying ? 'Tắt âm thanh rừng' : 'Bật âm thanh rừng'}
+            aria-label={ambient.isPlaying ? 'Mute' : 'Play'}
+            title={ambient.isPlaying ? 'Mute forest sound' : 'Play forest sound'}
         >
             {ambient.isPlaying ? (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -7,53 +7,53 @@ const HEALING_STEPS = [
     {
         id: 1,
         type: 'empathy',
-        title: 'Chúng tôi hiểu bạn',
+        title: 'We Understand You',
         icon: '💆',
-        description: 'Vì bạn đang cảm thấy nặng nề và căng thẳng...',
-        detail: 'Cơ thể bạn đang gửi tín hiệu cần được chăm sóc. Đây là bước đầu tiên của hành trình phục hồi — nơi chúng tôi lắng nghe và thấu hiểu.',
+        description: 'Because you are feeling heavy and stressed...',
+        detail: 'Your body is sending a signal for care. This is the first step of your healing journey — where we listen and understand.',
         image: '/shoulder-relief.png',
         color: '#d4a5a5',
     },
     {
         id: 2,
         type: 'solution',
-        title: 'Giải phóng cơ sâu',
+        title: 'Deep Muscle Release',
         icon: '🌿',
-        description: 'Bước 1: Trị liệu bằng tinh dầu thảo mộc',
-        detail: 'Liệu pháp tinh dầu organic kết hợp kỹ thuật massage Thụy Điển giúp thả lỏng các nhóm cơ sâu, giảm đau mỏi hiệu quả từ 60 phút đầu tiên.',
-        duration: '60 phút',
+        description: 'Step 1: Herbal Essential Oil Therapy',
+        detail: 'Organic essential oil therapy combined with Swedish massage techniques relaxes deep muscle groups, effectively reducing pain from the first 60 minutes.',
+        duration: '60 mins',
         image: '/essential-oils.png',
         color: '#5c7a3d',
     },
     {
         id: 3,
         type: 'solution',
-        title: 'Tái tạo năng lượng',
+        title: 'Energy Regeneration',
         icon: '✨',
-        description: 'Bước 2: Đá nóng & Liệu pháp ánh sáng',
-        detail: 'Đá bazan nóng đặt lên các huyệt đạo kết hợp ánh sáng trị liệu hồng ngoại, kích hoạt tuần hoàn máu và tái tạo tế bào mới.',
-        duration: '45 phút',
+        description: 'Step 2: Hot Stone & Light Therapy',
+        detail: 'Hot basalt stones placed on acupressure points combined with infrared therapy light activate blood circulation and regenerate new cells.',
+        duration: '45 mins',
         image: '/infrared-therapy.png',
         color: '#c8a96e',
     },
     {
         id: 4,
         type: 'solution',
-        title: 'Cân bằng tâm trí',
+        title: 'Mind Balancing',
         icon: '🧘',
-        description: 'Bước 3: Thiền định & Hương trị liệu',
-        detail: 'Phòng riêng tĩnh lặng với hương trầm và nhạc sóng não Theta, hướng dẫn thiền định cá nhân giúp tâm trí rũ bỏ mọi áp lực.',
-        duration: '30 phút',
+        description: 'Step 3: Meditation & Aromatherapy',
+        detail: 'A quiet private room with agarwood scent and Theta brainwave music, guided personal meditation helps the mind shed all pressure.',
+        duration: '30 mins',
         image: '/meditation.png',
         color: '#7a9c5a',
     },
     {
         id: 5,
         type: 'result',
-        title: 'Tái sinh toàn diện',
+        title: 'Total Rejuvenation',
         icon: '🌸',
-        description: 'Kết quả: Cơ thể & tâm trí hài hòa',
-        detail: 'Sau lộ trình, bạn sẽ cảm nhận rõ sự khác biệt: vai gáy nhẹ nhàng, tâm trí sáng suốt, giấc ngủ sâu hơn và năng lượng tích cực lan tỏa.',
+        description: 'Result: Body & Mind Harmony',
+        detail: 'After the journey, you will clearly feel the difference: light shoulders, clear mind, deeper sleep, and spreading positive energy.',
         image: '/flower-bloom.png',
         color: '#d4a5a5',
     },
@@ -88,7 +88,7 @@ const pageTransition = {
 function BookPage({ step, userData, isActive }) {
     let description = step.description
     if (step.type === 'empathy' && userData?.condition) {
-        description = `Vì bạn đang cảm thấy ${userData.condition.toLowerCase().substring(0, 80)}...`
+        description = `Because you are feeling ${userData.condition.toLowerCase().substring(0, 80)}...`
     }
 
     return (
@@ -134,7 +134,7 @@ function BookPage({ step, userData, isActive }) {
                         transition={{ delay: 0.4, duration: 0.9 }}
                     >
                         <div className="page-badge" style={{ background: step.color + '18', color: step.color }}>
-                            {step.type === 'empathy' ? 'Lắng nghe' : step.type === 'result' ? 'Kết quả' : `Bước ${step.id - 1}`}
+                            {step.type === 'empathy' ? 'Empathy' : step.type === 'result' ? 'Result' : `Step ${step.id - 1}`}
                         </div>
 
                         <h2 className="page-title">{step.title}</h2>
@@ -202,7 +202,7 @@ function RecommendationPage({ userData }) {
                         transition={{ delay: 0.4, duration: 0.9 }}
                     >
                         <p className="rec-greeting">
-                            Xin chào{userData?.name ? ` ${userData.name}` : ''},
+                            Welcome{userData?.name ? ` ${userData.name}` : ''},
                         </p>
                         <p className="rec-subtitle">Based on your experience, we recommend:</p>
 
@@ -221,7 +221,7 @@ function RecommendationPage({ userData }) {
                             </div>
                             <div className="rec-detail-item">
                                 <span className="rec-detail-label">Duration</span>
-                                <span className="rec-detail-value">135 phút</span>
+                                <span className="rec-detail-value">135 mins</span>
                             </div>
                             <div className="rec-detail-item">
                                 <span className="rec-detail-label">Contact</span>
@@ -237,7 +237,7 @@ function RecommendationPage({ userData }) {
                             whileTap={{ scale: 0.97 }}
                         >
                             <span className="cta-shimmer" />
-                            <span>Dành tặng bản thân trải nghiệm này</span>
+                            <span>Treat yourself to this experience</span>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
@@ -422,7 +422,7 @@ export default function PhaseThree({ userData }) {
                         disabled={currentPage === 0}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        aria-label="Trang trước"
+                        aria-label="Previous Page"
                     >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M15 18l-6-6 6-6" />
@@ -434,7 +434,7 @@ export default function PhaseThree({ userData }) {
                         disabled={currentPage === totalPages - 1}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        aria-label="Trang sau"
+                        aria-label="Next Page"
                     >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M9 18l6-6-6-6" />
@@ -457,7 +457,7 @@ export default function PhaseThree({ userData }) {
                             animate={{ scaleX: 1 }}
                             transition={{ duration: 5, ease: 'linear' }}
                         />
-                        <span>Đang tự động lật trang...</span>
+                        <span>Auto-playing pages...</span>
                     </motion.div>
                 )}
             </div>
@@ -466,7 +466,7 @@ export default function PhaseThree({ userData }) {
             <footer className="book-footer" id="footer">
                 <div className="footer-inner">
                     <span className="footer-brand">© 2026 Home Healing Hub</span>
-                    <span className="footer-hint">← → hoặc click để lật trang</span>
+                    <span className="footer-hint">← → or click to flip pages</span>
                 </div>
             </footer>
         </motion.div>

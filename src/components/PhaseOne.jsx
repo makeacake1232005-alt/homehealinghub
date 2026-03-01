@@ -147,11 +147,11 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                     </motion.div>
 
                     <h1 className="section-title" id="hero-title" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '1rem' }}>
-                        Tư Vấn Trị Liệu<br />
-                        <span className="title-accent">Cá Nhân Hóa</span>
+                        Personalized<br />
+                        <span className="title-accent">Healing Consultation</span>
                     </h1>
                     <p className="section-subtitle" style={{ fontSize: '1.2rem', marginBottom: '4rem', maxWidth: '600px' }}>
-                        Hãy tĩnh tâm và chia sẻ cảm nhận hiện tại của bạn. Nhấn vào nút bên dưới để bước vào không gian chăm sóc dành riêng cho bạn.
+                        Take a deep breath and share how you feel right now. Click the button below to enter your private sanctuary.
                     </p>
 
                     <button className="epic-btn-container" onClick={handleStartConsultation}>
