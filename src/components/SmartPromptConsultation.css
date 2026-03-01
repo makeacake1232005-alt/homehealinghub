@@ -57,22 +57,24 @@
     border: none;
     outline: none;
     font-family: var(--font-display);
-    font-size: clamp(2rem, 6vw, 4rem);
-    color: #2c2c2c;
+    font-size: clamp(2rem, 5.5vw, 3.8rem);
+    color: var(--color-primary-dark);
     text-align: center;
-    padding: 1rem 0;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-    transition: all 0.3s;
+    padding: 1.5rem 0;
+    border-bottom: 2px solid rgba(92, 122, 61, 0.15);
+    transition: all 0.4s ease;
     z-index: 2;
     position: relative;
+    text-shadow: 0 4px 15px rgba(255, 255, 255, 0.8);
 }
 
 .smart-giant-input::placeholder {
-    color: rgba(0, 0, 0, 0.25);
+    color: rgba(92, 122, 61, 0.4);
+    font-weight: 300;
 }
 
 .smart-giant-input:focus {
-    border-bottom-color: var(--color-primary);
+    border-bottom-color: transparent;
 }
 
 .smart-input-glow {
@@ -81,15 +83,58 @@
     left: 50%;
     transform: translateX(-50%);
     width: 0;
-    height: 2px;
-    background: var(--color-primary);
-    box-shadow: 0 0 20px 5px rgba(92, 122, 61, 0.3);
-    transition: width 0.4s ease;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), #7a9c5a, transparent);
+    box-shadow: 0 0 30px 10px rgba(122, 160, 80, 0.25);
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1;
 }
 
 .smart-giant-input:focus~.smart-input-glow {
     width: 100%;
+}
+
+/* Ambient Rays Background */
+.ambient-ray {
+    position: absolute;
+    width: 150vw;
+    height: 150vh;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+    filter: blur(60px);
+}
+
+.ray-1 {
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(circle, rgba(160, 195, 120, 0.25) 0%, transparent 60%);
+    animation: float-ray 15s ease-in-out infinite alternate;
+}
+
+.ray-2 {
+    top: -10%;
+    right: -40%;
+    background: radial-gradient(circle, rgba(200, 220, 150, 0.2) 0%, transparent 60%);
+    animation: float-ray 18s ease-in-out infinite alternate-reverse;
+}
+
+.ray-3 {
+    bottom: -40%;
+    left: 10%;
+    background: radial-gradient(circle, rgba(140, 180, 100, 0.15) 0%, transparent 60%);
+    animation: float-ray 20s ease-in-out infinite alternate;
+}
+
+@keyframes float-ray {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(5%, 8%) scale(1.1);
+    }
 }
 
 .smart-suggestion {

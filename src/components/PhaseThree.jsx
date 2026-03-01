@@ -291,7 +291,7 @@ export default function PhaseThree({ userData }) {
             } else {
                 setIsPaused(true) // Stop at last page
             }
-        }, 5000) // 5s per page
+        }, 3500) // 3.5s per page
 
         return () => {
             if (autoTimerRef.current) clearTimeout(autoTimerRef.current)
@@ -455,7 +455,7 @@ export default function PhaseThree({ userData }) {
                             key={currentPage}
                             initial={{ scaleX: 0 }}
                             animate={{ scaleX: 1 }}
-                            transition={{ duration: 5, ease: 'linear' }}
+                            transition={{ duration: 3.5, ease: 'linear' }}
                         />
                         <span>Auto-playing pages...</span>
                     </motion.div>

@@ -74,6 +74,11 @@ export default function SmartPromptConsultation({ onComplete }) {
             <div className="smart-bg-wrapper">
                 <img src="/spa-banner.png" alt="Spa Background" className="smart-bg-image" />
                 <div className="smart-bg-overlay" />
+
+                {/* Natural Sun Rays / Ambient Lights */}
+                <div className="ambient-ray ray-1" />
+                <div className="ambient-ray ray-2" />
+                <div className="ambient-ray ray-3" />
             </div>
 
             <AnimatePresence mode="wait">
@@ -92,7 +97,7 @@ export default function SmartPromptConsultation({ onComplete }) {
                                 ref={inputRef}
                                 type="text"
                                 className="smart-giant-input"
-                                placeholder="Where do you need healing today?"
+                                placeholder="Describe your current condition"
                                 value={input}
                                 onChange={handleInputChange}
                                 onKeyDown={handleKeyDown}
