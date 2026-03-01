@@ -100,6 +100,12 @@ export default function SmartPromptConsultation({ onComplete }) {
 
     return (
         <div className="smart-consultation">
+            {/* BACKGROUND IMAGES FOR LIGHT THEME */}
+            <div className="smart-bg-wrapper">
+                <img src="/spa-banner.png" alt="Spa Background" className="smart-bg-image" />
+                <div className="smart-bg-overlay" />
+            </div>
+
             <AnimatePresence mode="wait">
                 {/* PHASE 1: THANH TÀNG HÌNH */}
                 {phase === 'input' && (
@@ -180,67 +186,73 @@ export default function SmartPromptConsultation({ onComplete }) {
 
                         <div className="dashboard-content">
                             {/* Left: Chat Box */}
-                            <div className="smart-chatbox">
-                                <div className="chat-messages">
-                                    {chatMessages.map((msg, idx) => (
-                                        <motion.div
-                                            key={idx}
-                                            className={`chat-bubble-wrap ${msg.sender}`}
-                                            initial={{ opacity: 0, x: msg.sender === 'bot' ? -20 : 20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                        >
-                                            <div className="chat-bubble">
-                                                {msg.text}
-                                            </div>
-                                        </motion.div>
-                                    ))}
-                                    <div ref={chatEndRef} />
+                            <div className="smart-chatbox-wrapper">
+                                <img src="/essential-oils.png" alt="Oils" className="chat-bg-img" />
+                                <div className="smart-chatbox">
+                                    <div className="chat-messages">
+                                        {chatMessages.map((msg, idx) => (
+                                            <motion.div
+                                                key={idx}
+                                                className={`chat-bubble-wrap ${msg.sender}`}
+                                                initial={{ opacity: 0, x: msg.sender === 'bot' ? -20 : 20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                            >
+                                                <div className="chat-bubble">
+                                                    {msg.text}
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                        <div ref={chatEndRef} />
+                                    </div>
+                                    <form className="chat-input-area" onSubmit={handleSendChat}>
+                                        <input
+                                            type="text"
+                                            placeholder="Trò chuyện với trợ lý Healing..."
+                                            value={chatInput}
+                                            onChange={(e) => setChatInput(e.target.value)}
+                                        />
+                                        <button type="submit" className="chat-send-btn">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                        </button>
+                                    </form>
                                 </div>
-                                <form className="chat-input-area" onSubmit={handleSendChat}>
-                                    <input
-                                        type="text"
-                                        placeholder="Trò chuyện với trợ lý Healing..."
-                                        value={chatInput}
-                                        onChange={(e) => setChatInput(e.target.value)}
-                                    />
-                                    <button type="submit" className="chat-send-btn">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                                    </button>
-                                </form>
                             </div>
 
                             {/* Right: Full Form */}
-                            <div className="smart-form-section">
-                                <h3>Thông tin Đặt lịch</h3>
-                                <form onSubmit={handleSubmitForm} className="smart-form">
-                                    <div className="form-group-modern">
-                                        <input type="text" id="sf-name" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder=" " />
-                                        <label htmlFor="sf-name">Họ và Tên</label>
-                                    </div>
-                                    <div className="form-group-modern">
-                                        <input type="tel" id="sf-phone" required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder=" " />
-                                        <label htmlFor="sf-phone">Số Điện Thoại</label>
-                                    </div>
-                                    <div className="form-group-modern">
-                                        <input type="email" id="sf-email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder=" " />
-                                        <label htmlFor="sf-email">Email (tùy chọn)</label>
-                                    </div>
-                                    <div className="form-group-modern select-modern">
-                                        <select id="sf-intensity" value={formData.intensity} onChange={(e) => setFormData({ ...formData, intensity: e.target.value })}>
-                                            <option value="Nhẹ">Mức độ: Nhẹ (Thi thoảng đau)</option>
-                                            <option value="Vừa">Mức độ: Vừa (Ảnh hưởng sinh hoạt)</option>
-                                            <option value="Sâu">Mức độ: Nặng (Đau âm ỉ kéo dài)</option>
-                                        </select>
-                                    </div>
-                                    <motion.button
-                                        type="submit"
-                                        className="smart-submit-btn"
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                    >
-                                        Hoàn tất & Nhận Phác Đồ
-                                    </motion.button>
-                                </form>
+                            <div className="smart-form-section-wrapper">
+                                <img src="/meditation.png" alt="Meditation" className="form-bg-img" />
+                                <div className="smart-form-section">
+                                    <h3>Thông tin Đặt lịch</h3>
+                                    <form onSubmit={handleSubmitForm} className="smart-form">
+                                        <div className="form-group-modern">
+                                            <input type="text" id="sf-name" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder=" " />
+                                            <label htmlFor="sf-name">Họ và Tên</label>
+                                        </div>
+                                        <div className="form-group-modern">
+                                            <input type="tel" id="sf-phone" required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder=" " />
+                                            <label htmlFor="sf-phone">Số Điện Thoại</label>
+                                        </div>
+                                        <div className="form-group-modern">
+                                            <input type="email" id="sf-email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder=" " />
+                                            <label htmlFor="sf-email">Email (tùy chọn)</label>
+                                        </div>
+                                        <div className="form-group-modern select-modern">
+                                            <select id="sf-intensity" value={formData.intensity} onChange={(e) => setFormData({ ...formData, intensity: e.target.value })}>
+                                                <option value="Nhẹ">Mức độ: Nhẹ (Thi thoảng đau)</option>
+                                                <option value="Vừa">Mức độ: Vừa (Ảnh hưởng sinh hoạt)</option>
+                                                <option value="Sâu">Mức độ: Nặng (Đau âm ỉ kéo dài)</option>
+                                            </select>
+                                        </div>
+                                        <motion.button
+                                            type="submit"
+                                            className="smart-submit-btn"
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                        >
+                                            Hoàn tất & Nhận Phác Đồ
+                                        </motion.button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </motion.div>

@@ -862,13 +862,13 @@
     }
 }
 
- 
+
 
 /* Epic Transition Button */
 .epic-btn-container {
     position: relative;
-    background: #0d0e12;
-    color: #4ade80;
+    background: #ffffff;
+    color: var(--color-primary-dark);
     padding: 1.5rem 3.5rem;
     border-radius: 4rem;
     font-size: 1.4rem;
@@ -876,7 +876,7 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(92, 122, 61, 0.15);
     transition: all 0.3s ease;
     border: none;
     outline: none;
@@ -890,25 +890,25 @@
     inset: -3px;
     /* expand for border */
     border-radius: calc(4rem + 3px);
-    background: linear-gradient(90deg, #4ade80, #10b981, #059669, #10b981, #4ade80);
+    background: linear-gradient(90deg, #5c7a3d, #8ea86a, #4a6331, #8ea86a, #5c7a3d);
     background-size: 300% 100%;
     animation: gradient-move 3s linear infinite;
     z-index: -2;
 }
 
-/* Pseudo element for the inner black background */
+/* Pseudo element for the inner white background */
 .epic-btn-container::after {
     content: '';
     position: absolute;
     inset: 0px;
-    background: #0d0e12;
+    background: #ffffff;
     border-radius: 4rem;
     z-index: -1;
 }
 
 .epic-btn-container:hover {
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(74, 222, 128, 0.8);
+    color: var(--color-primary);
+    text-shadow: 0 0 10px rgba(92, 122, 61, 0.4);
     transform: scale(0.98);
 }
 
