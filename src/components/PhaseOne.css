@@ -880,21 +880,19 @@
     transition: all 0.3s ease;
     border: none;
     outline: none;
-    overflow: hidden;
-    isolation: isolate;
-    /* Force clip on some browsers */
+    z-index: 1;
 }
 
 /* Pseudo element for the rotating border */
 .epic-btn-container::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(from 0deg, transparent 0%, transparent 40%, rgba(74, 222, 128, 0.8) 80%, #4ade80 100%);
-    animation: rotate-border 2s linear infinite;
+    inset: -3px;
+    /* expand for border */
+    border-radius: calc(4rem + 3px);
+    background: linear-gradient(90deg, #4ade80, #10b981, #059669, #10b981, #4ade80);
+    background-size: 300% 100%;
+    animation: gradient-move 3s linear infinite;
     z-index: -2;
 }
 
@@ -902,10 +900,9 @@
 .epic-btn-container::after {
     content: '';
     position: absolute;
-    inset: 3px;
-    /* Border thickness */
+    inset: 0px;
     background: #0d0e12;
-    border-radius: calc(4rem - 3px);
+    border-radius: 4rem;
     z-index: -1;
 }
 
@@ -916,15 +913,19 @@
 }
 
 .epic-btn-container:hover::before {
-    animation: rotate-border 1.2s linear infinite;
+    animation: gradient-move 1.5s linear infinite;
 }
 
 .epic-btn-container:active {
     transform: scale(0.95);
 }
 
-@keyframes rotate-border {
+@keyframes gradient-move {
+    0% {
+        background-position: 0% 50%;
+    }
+
     100% {
-        transform: rotate(360deg);
+        background-position: 100% 50%;
     }
 }
