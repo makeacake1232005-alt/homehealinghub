@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import GiantConsultation from './GiantConsultation'
+import BentoConsultation from './BentoConsultation'
+import SmartPromptConsultation from './SmartPromptConsultation'
 import './PhaseOne.css'
 
 
@@ -73,13 +75,23 @@ function ExperienceShowcase() {
 }
 
 export default function PhaseOne({ onComplete, userData, setUserData }) {
-    const [wizardActive, setWizardActive] = useState(false)
+    const [wizardActive, setWizardActive] = useState(null)
 
     return (
         <>
-            {wizardActive && (
+            {wizardActive === 'giant' && (
                 <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 99999 }}>
                     <GiantConsultation onComplete={onComplete} />
+                </div>
+            )}
+            {wizardActive === 'bento' && (
+                <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 99999 }}>
+                    <BentoConsultation onComplete={onComplete} />
+                </div>
+            )}
+            {wizardActive === 'smart' && (
+                <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 99999 }}>
+                    <SmartPromptConsultation onComplete={onComplete} />
                 </div>
             )}
 
@@ -189,16 +201,37 @@ export default function PhaseOne({ onComplete, userData, setUserData }) {
                         Hãy tĩnh tâm và chia sẻ cảm nhận hiện tại của bạn. Giao diện trực quan mới giúp bạn dễ dàng bộc lộ trọn vẹn sự mệt mỏi mà không cần gõ bất cứ từ nào.
                     </p>
 
-                    <motion.button
-                        className="submit-btn"
-                        style={{ maxWidth: '400px', fontSize: '1.4rem', padding: '1.5rem', borderRadius: '4rem' }}
-                        onClick={() => setWizardActive(true)}
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <span className="btn-shimmer" />
-                        <span className="btn-text">Bắt đầu Lắng nghe Cơ thể</span>
-                    </motion.button>
+                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        <motion.button
+                            className="submit-btn"
+                            style={{ maxWidth: '300px', fontSize: '1.2rem', padding: '1.2rem 2rem', borderRadius: '4rem' }}
+                            onClick={() => setWizardActive('bento')}
+                            whileHover={{ scale: 1.05, y: -5 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <span className="btn-shimmer" />
+                            <span className="btn-text">Dùng Bento Grid (Mới🔥)</span>
+                        </motion.button>
+                        <motion.button
+                            className="submit-btn"
+                            style={{ maxWidth: '300px', fontSize: '1.2rem', padding: '1.2rem 2rem', borderRadius: '4rem', background: '#222' }}
+                            onClick={() => setWizardActive('smart')}
+                            whileHover={{ scale: 1.05, y: -5 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <span className="btn-shimmer" />
+                            <span className="btn-text">Thanh Tàng Hình (Auto-suggest)</span>
+                        </motion.button>
+                        <motion.button
+                            className="submit-btn"
+                            style={{ maxWidth: '300px', fontSize: '1.2rem', padding: '1.2rem 2rem', borderRadius: '4rem', background: 'transparent', border: '1px solid #ddd', color: '#555' }}
+                            onClick={() => setWizardActive('giant')}
+                            whileHover={{ scale: 1.05, y: -5 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <span className="btn-text">Dùng Slider Cũ (Khổng lồ)</span>
+                        </motion.button>
+                    </div>
                 </div>
             </motion.div>
         </>
